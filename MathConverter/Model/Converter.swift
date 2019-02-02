@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 import Alamofire
 
+
 func convertImage(image: NSImage){
     Swift.print("Converting")
     

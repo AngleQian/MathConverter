@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 enum ImageError: Error {
     case imageImportError(String)
 }

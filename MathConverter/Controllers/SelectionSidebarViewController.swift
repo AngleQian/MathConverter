@@ -8,17 +8,29 @@
 
 import Cocoa
 
+
 protocol SelectionSidebarSelectionObserver {
     func selectionsAdded(added: Set<IndexPath>)
     func selectionsRemoved(removed: Set<IndexPath>)
 }
 
+
 class SelectionSidebarViewController: NSViewController {
     
     @IBOutlet weak var selectionSidebar: NSCollectionView!
-    @IBOutlet weak var noOfImagesLabel: NSTextField!
-    @IBOutlet weak var addImageButton: NSButton!
-    @IBOutlet weak var removeImageButton: NSButton!
+
+    // never used
+    var removeImageButton: NSButton {
+        get {
+            return (view.window!.windowController! as! WindowController).removeImageButton
+        }
+    }
+    
+    var totalNoOfImagesSelections: NSTextField {
+        get {
+            return (view.window!.windowController! as! WindowController).totalNoOfImagesSelections
+        }
+    }
     
     var document: Document? {
         return view.window!.windowController?.document as? Document
@@ -39,15 +51,13 @@ class SelectionSidebarViewController: NSViewController {
 
     private func configureCollectionView() {
         let flowLayout = NSCollectionViewFlowLayout()
-        
-        flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
-        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
-        flowLayout.minimumInteritemSpacing = 20.0
+    
+//        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        flowLayout.minimumInteritemSpacing = 100.0
         flowLayout.minimumLineSpacing = 20.0
         
         selectionSidebar.collectionViewLayout = flowLayout
         view.wantsLayer = true
-        selectionSidebar.layer?.backgroundColor = NSColor.blue.cgColor
     }
     
     private func registerDragAndDrop() {
@@ -61,30 +71,28 @@ class SelectionSidebarViewController: NSViewController {
             guard let item = selectionSidebar.item(at: indexPath) else {continue}
             (item as! SidebarThumbnail).setHighlight(selected: selected)
         }
-        updateRemoveButton()
     }
     
     // called when selections need to be made programmatically
     fileprivate func selectItems(newSelection: Set<IndexPath>){
         selectionSidebar.selectItems(at: newSelection, scrollPosition: NSCollectionView.ScrollPosition.nearestHorizontalEdge)
-        updateRemoveButton()
         selectionsAdded(added: newSelection)
     }
     
-    fileprivate func reloadData(){
+    func reloadData(){
         selectionSidebar.reloadData()
         // reloadData() will clear all the selections
         selectionsRemoved(removed: selectionSidebar.selectionIndexPaths)
     }
     
-    fileprivate func updateRemoveButton() {
-        removeImageButton.isEnabled = !selectionSidebar.selectionIndexPaths.isEmpty
+    func refreshLayout() {
+        selectionSidebar.collectionViewLayout?.invalidateLayout()
     }
     
     // atIndex of the current selection
     // image(s) should be added after the selection
     // the last newly added image should be selected
-    fileprivate func addImageAtIndexFromURLs(urls: [URL], atIndex: Int){
+    fileprivate func addImageAtIndexFromURLs(urls: [URL], atIndex: Int) {
         var currentItem = atIndex
         var indexPaths: Set<IndexPath> = []
         
@@ -97,7 +105,6 @@ class SelectionSidebarViewController: NSViewController {
             currentItem += 1
         }
         
-//        selectionSidebar.insertItems(at: indexPaths)
         reloadData() // clears selection
         
         if isSelectionEmpty {
@@ -113,8 +120,8 @@ class SelectionSidebarViewController: NSViewController {
         selectItems(newSelection: newSelection)
     }
     
-    
-    @IBAction func addImage(_ sender: Any) {
+    // addImage() will be called from WindowController
+    func addImage() {
         var maxSelectionIndex: Int? // if selectionIndexPaths is empty, maxSelectionIndex will be nil
         for indexPath in selectionSidebar.selectionIndexPaths {
             if indexPath.item >= maxSelectionIndex ?? 0 {
@@ -136,7 +143,8 @@ class SelectionSidebarViewController: NSViewController {
         })
     }
     
-    @IBAction func removeImage(_ sender: Any) {
+    // removeImage() will be called from WindowController
+    func removeImage() {
         let selectionIndexPaths = selectionSidebar.selectionIndexPaths
         if selectionIndexPaths.isEmpty {
             return
@@ -161,8 +169,6 @@ class SelectionSidebarViewController: NSViewController {
             return
         }
         if noOfImages == 0 {
-            updateRemoveButton()
-            // no selection needed
             return
         } else {
             // the element before the first element in the selection will be selected after removal
@@ -177,17 +183,17 @@ class SelectionSidebarViewController: NSViewController {
     
     private var selectionSidebarSelectionObservers = [SelectionSidebarSelectionObserver]()
     
-    func attachObserver(observer: SelectionSidebarSelectionObserver){
+    func attachObserver(observer: SelectionSidebarSelectionObserver) {
         selectionSidebarSelectionObservers.append(observer)
     }
     
-    func selectionsAdded(added: Set<IndexPath>) {
+    fileprivate func selectionsAdded(added: Set<IndexPath>) {
         for observer in selectionSidebarSelectionObservers {
             observer.selectionsAdded(added: added)
         }
     }
     
-    func selectionsRemoved(removed: Set<IndexPath>) {
+    fileprivate func selectionsRemoved(removed: Set<IndexPath>) {
         for observer in selectionSidebarSelectionObservers {
             observer.selectionsRemoved(removed: removed)
         }
@@ -231,12 +237,21 @@ extension SelectionSidebarViewController: NSCollectionViewDelegate {
 }
 
 
+extension SelectionSidebarViewController: NSCollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        let newWidth = selectionSidebar.frame.width - 2 * 20 - 20
+        let ratio = newWidth / document!.images[indexPath.item].image!.size.width
+        let newHeight = ratio * document!.images[indexPath.item].image!.size.height
+        return NSSize(width: newWidth, height: newHeight)
+    }
+}
+
+
 extension SelectionSidebarViewController: DocumentObserver {
     func imageAddedOrRemoved() {
-        if let x = document?.noOfImages {
-            noOfImagesLabel.stringValue = String(x) + " Images"
-        }
+        totalNoOfImagesSelections.stringValue = String(document?.noOfImages ?? 0) + " / " + String(document?.noOfSelections() ?? 0)
     }
+    
     func displayChanged() {
         
     }

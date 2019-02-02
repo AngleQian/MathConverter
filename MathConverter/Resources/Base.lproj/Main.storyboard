@@ -683,6 +683,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
+                <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" customClass="WindowController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -690,44 +691,103 @@
                         <rect key="contentRect" x="0.0" y="757" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="480" height="270"/>
+                        <toolbar key="toolbar" implicitIdentifier="79D699FF-045B-489E-9628-C4062DBF364F" centeredItem="pwz-MD-syx" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="g3k-yM-fpa">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="4kJ-zE-ePD"/>
+                                <toolbarItem implicitItemIdentifier="AFCE6F84-B751-47D8-A12E-EBBFE50CB529" label="Areas for Conversion" paletteLabel="Areas for Conversion" sizingBehavior="auto" selectable="YES" id="pwz-MD-syx">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="WSK-h0-bo7">
+                                        <rect key="frame" x="1" y="14" width="115" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Add Selection" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30K-IK-F00">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="8be-q3-F5Z"/>
+                                <toolbarItem implicitItemIdentifier="E94785BA-14F5-4FB7-96CC-FD69D43C273E" label="Window" paletteLabel="Window" sizingBehavior="auto" id="wab-AG-QCg">
+                                    <nil key="toolTip"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" id="V10-1w-RDz">
+                                        <rect key="frame" x="0.0" y="14" width="172" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="z2V-Dv-yHq">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="Select" width="83" selected="YES"/>
+                                                <segment label="Result" width="82" tag="1"/>
+                                            </segments>
+                                        </segmentedCell>
+                                    </segmentedControl>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="4DAFBA8A-C6FA-4FD8-8B73-5A655E17E252" label="Images / Selections" paletteLabel="Images / Selections" sizingBehavior="auto" selectable="YES" id="HLj-Gf-pOH">
+                                    <nil key="toolTip"/>
+                                    <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="sY3-5v-Bmz">
+                                        <rect key="frame" x="0.0" y="14" width="147" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" alignment="center" title="0 / 0" usesSingleLineMode="YES" id="dY6-Vj-wGs">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5BC0556D-6E5F-4420-B879-11D07E76A8C4" label="Remove Image" paletteLabel="Remove Image" image="NSRemoveTemplate" sizingBehavior="auto" id="mFb-9H-7UT">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="D3U-VJ-NRg">
+                                        <rect key="frame" x="0.0" y="14" width="127" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cry-46-rij">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="removeImage:" target="jGA-0Y-lOj" id="Wxs-nJ-sPc"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="6A33F29B-669B-451B-BEDF-142981F9D69D" label="Add Image" paletteLabel="Add Image" image="NSAddTemplate" sizingBehavior="auto" id="H86-WQ-2Zt">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="xH8-tE-1Ek">
+                                        <rect key="frame" x="0.0" y="14" width="127" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ls1-X8-IfN">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addImage:" target="jGA-0Y-lOj" id="JD3-Ic-ETK"/>
+                                        </connections>
+                                    </button>
+                                    <connections>
+                                        <action selector="addImage:" target="jGA-0Y-lOj" id="8Hb-ve-3tj"/>
+                                    </connections>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="H86-WQ-2Zt"/>
+                                <toolbarItem reference="mFb-9H-7UT"/>
+                                <toolbarItem reference="8be-q3-F5Z"/>
+                                <toolbarItem reference="HLj-Gf-pOH"/>
+                                <toolbarItem reference="4kJ-zE-ePD"/>
+                                <toolbarItem reference="pwz-MD-syx"/>
+                                <toolbarItem reference="4kJ-zE-ePD"/>
+                                <toolbarItem reference="wab-AG-QCg"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="jGA-0Y-lOj" id="98r-iN-zZc"/>
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="5gI-5U-AMq" kind="relationship" relationship="window.shadowedContentViewController" id="N2k-zs-itv"/>
+                        <outlet property="addSelectionButton" destination="WSK-h0-bo7" id="9Sh-OK-SSy"/>
+                        <outlet property="removeImageButton" destination="D3U-VJ-NRg" id="iQ7-xl-u50"/>
+                        <outlet property="totalNoOfImagesSelections" destination="sY3-5v-Bmz" id="AoN-K9-CGx"/>
+                        <segue destination="x5l-qL-pME" kind="relationship" relationship="window.shadowedContentViewController" id="Ud5-wR-lwF"/>
                     </connections>
                 </windowController>
-                <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="78" y="238"/>
-        </scene>
-        <!--Home View Controller-->
-        <scene sceneID="hIz-AP-VOD">
-            <objects>
-                <viewController id="5gI-5U-AMq" customClass="HomeViewController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="ERx-hH-rdd">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="233"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="W8d-lR-8wv">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="233"/>
-                                <connections>
-                                    <segue destination="x5l-qL-pME" kind="embed" id="OCA-Sd-p0Q"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="W8d-lR-8wv" secondAttribute="bottom" id="Gxc-z0-s9h"/>
-                            <constraint firstAttribute="trailing" secondItem="W8d-lR-8wv" secondAttribute="trailing" id="IWq-Go-z8q"/>
-                            <constraint firstItem="W8d-lR-8wv" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="cV8-mz-Hb2"/>
-                            <constraint firstItem="W8d-lR-8wv" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="kbp-Ya-d6X"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="78" y="693.5"/>
         </scene>
         <!--Selection Split View Controller-->
         <scene sceneID="L9l-OU-7S5">
@@ -752,24 +812,24 @@
                 </splitViewController>
                 <customObject id="mf2-5l-URF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="1136"/>
+            <point key="canvasLocation" x="78" y="716"/>
         </scene>
         <!--Selection Sidebar View Controller-->
         <scene sceneID="lM8-d3-MkR">
             <objects>
                 <viewController id="XVW-jA-TUo" customClass="SelectionSidebarViewController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="aAk-FO-XKF">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="360"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         <subviews>
                             <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHR-sC-5Xz">
-                                <rect key="frame" x="0.0" y="30" width="300" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="360"/>
                                 <clipView key="contentView" id="yO5-Jz-hi3">
-                                    <rect key="frame" x="1" y="1" width="298" height="268"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="358"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsMultipleSelection="YES" id="ggy-jk-ZMx">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="268"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="358"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="PSf-0J-9jd">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -783,76 +843,33 @@
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="stl-le-gij"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="WKh-dH-cWb"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="stl-le-gij"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Kz9-RY-De1">
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="uca-Eh-IPj">
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="uca-Eh-IPj">
                                     <rect key="frame" x="234" y="1" width="15" height="143"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lbd-Pg-GyL">
-                                <rect key="frame" x="18" y="6" width="64" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="3vy-p9-3yJ"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="0 Images" id="nxy-AX-g8w">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0dT-ha-w9A">
-                                <rect key="frame" x="221" y="-2" width="65" height="31"/>
-                                <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mwL-no-w4z">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addImage:" target="XVW-jA-TUo" id="sgm-6U-d2s"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Wr-Oy-Z0g">
-                                <rect key="frame" x="130" y="-2" width="89" height="31"/>
-                                <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pih-yp-2Df">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="removeImage:" target="XVW-jA-TUo" id="38c-81-GKw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="0dT-ha-w9A" secondAttribute="bottom" constant="5" id="0gj-To-4oP"/>
-                            <constraint firstItem="lbd-Pg-GyL" firstAttribute="top" secondItem="YHR-sC-5Xz" secondAttribute="bottom" constant="6" id="485-9A-RCO"/>
-                            <constraint firstAttribute="bottom" secondItem="9Wr-Oy-Z0g" secondAttribute="bottom" constant="5" id="7Ce-YK-Ad9"/>
-                            <constraint firstAttribute="trailing" secondItem="0dT-ha-w9A" secondAttribute="trailing" constant="20" id="FmC-aQ-2C7"/>
-                            <constraint firstItem="0dT-ha-w9A" firstAttribute="top" secondItem="YHR-sC-5Xz" secondAttribute="bottom" constant="5" id="J4c-EG-HvC"/>
-                            <constraint firstAttribute="bottom" secondItem="YHR-sC-5Xz" secondAttribute="bottom" constant="30" id="LUG-Kz-xxC"/>
-                            <constraint firstItem="0dT-ha-w9A" firstAttribute="leading" secondItem="9Wr-Oy-Z0g" secondAttribute="trailing" constant="14" id="LYx-I5-tAz"/>
-                            <constraint firstItem="9Wr-Oy-Z0g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lbd-Pg-GyL" secondAttribute="trailing" constant="25" id="OIA-cK-acz"/>
-                            <constraint firstItem="9Wr-Oy-Z0g" firstAttribute="top" secondItem="YHR-sC-5Xz" secondAttribute="bottom" constant="5" id="bjN-sA-jQE"/>
+                            <constraint firstAttribute="bottom" secondItem="YHR-sC-5Xz" secondAttribute="bottom" id="LUG-Kz-xxC"/>
                             <constraint firstItem="YHR-sC-5Xz" firstAttribute="top" secondItem="aAk-FO-XKF" secondAttribute="top" id="bqM-bq-ABt"/>
                             <constraint firstAttribute="trailing" secondItem="YHR-sC-5Xz" secondAttribute="trailing" id="d6L-07-mKf"/>
-                            <constraint firstItem="lbd-Pg-GyL" firstAttribute="leading" secondItem="aAk-FO-XKF" secondAttribute="leading" constant="20" id="dup-4c-2Bx"/>
                             <constraint firstItem="YHR-sC-5Xz" firstAttribute="leading" secondItem="aAk-FO-XKF" secondAttribute="leading" id="mh3-fL-BZW"/>
-                            <constraint firstAttribute="bottom" secondItem="lbd-Pg-GyL" secondAttribute="bottom" constant="6" id="r0E-mr-Um2"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addImageButton" destination="mwL-no-w4z" id="7Te-a1-us8"/>
-                        <outlet property="noOfImagesLabel" destination="lbd-Pg-GyL" id="mwc-Kl-xAO"/>
-                        <outlet property="removeImageButton" destination="pih-yp-2Df" id="iRT-zy-AgF"/>
                         <outlet property="selectionSidebar" destination="ggy-jk-ZMx" id="iGF-kq-vgs"/>
                     </connections>
                 </viewController>
                 <customObject id="ppv-nQ-HxA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-99" y="1627"/>
+            <point key="canvasLocation" x="-97" y="1234"/>
         </scene>
         <!--Selection Main View Controller-->
         <scene sceneID="DV5-Od-2ab">
@@ -861,7 +878,7 @@
                     <scrollView key="view" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" usesPredominantAxisScrolling="NO" id="HEk-Kz-Cb5">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" id="vft-Qg-X3d" customClass="CenteringClipView" customModule="MathConverter" customModuleProvider="target">
+                        <clipView key="contentView" copiesOnScroll="NO" id="vft-Qg-X3d" customClass="CenteringClipView" customModule="MathConverter" customModuleProvider="target">
                             <rect key="frame" x="1" y="1" width="448" height="298"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -870,7 +887,7 @@
                                     <subviews>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SbW-Oy-co1" customClass="SelectionMainView" customModule="MathConverter" customModuleProvider="target">
                                             <rect key="frame" x="-3" y="-3" width="454" height="304"/>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="w31-NS-Odx"/>
+                                            <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="w31-NS-Odx"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -900,26 +917,30 @@
                         </scroller>
                     </scrollView>
                     <connections>
-                        <outlet property="imageView" destination="SbW-Oy-co1" id="nbs-1X-jn7"/>
                         <outlet property="scrollView" destination="HEk-Kz-Cb5" id="owv-9m-Qc4"/>
+                        <outlet property="selectionMainView" destination="SbW-Oy-co1" id="byt-Vk-1gd"/>
                     </connections>
                 </viewController>
                 <customObject id="3sB-De-p8X" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="302" y="1627"/>
+            <point key="canvasLocation" x="302" y="1204"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="gLt-2A-MtJ">
+        <!--Selection Canvas Controller-->
+        <scene sceneID="XHu-tX-8Ux">
             <objects>
-                <viewController id="xFU-c8-uFl" sceneMemberID="viewController">
-                    <view key="view" id="cJr-3h-VD4">
+                <viewController storyboardIdentifier="SelectionCanvasController" id="MLt-Sx-jlX" customClass="SelectionCanvasController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="3H8-yI-c2S" customClass="SelectionCanvas" customModule="MathConverter" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </view>
                 </viewController>
-                <customObject id="PPk-eJ-HbI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="pf4-Ln-sxA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660" y="598"/>
+            <point key="canvasLocation" x="304" y="1597"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
+    </resources>
 </document>

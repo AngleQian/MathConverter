@@ -8,11 +8,11 @@
 
 import Cocoa
 
-class CenteringClipView: NSClipView {
 
+class CenteringClipView: NSClipView {
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
         // Drawing code here.
     }
     

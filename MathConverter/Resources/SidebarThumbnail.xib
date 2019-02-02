@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SidebarThumbnail" customModule="MathConverter" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="JUH-Zo-X50" id="a7Q-KL-lm8"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -17,11 +18,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JUH-Zo-X50">
-                    <rect key="frame" x="5" y="30" width="470" height="237"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="5eI-mi-t4T"/>
+                    <rect key="frame" x="0.0" y="20" width="480" height="247"/>
+                    <imageCell key="cell" controlSize="mini" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="5eI-mi-t4T"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2fx-77-vI9">
-                    <rect key="frame" x="-2" y="0.0" width="484" height="22"/>
+                    <rect key="frame" x="-2" y="0.0" width="484" height="20"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Label" id="rC2-AO-7st">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -31,13 +32,13 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2fx-77-vI9" secondAttribute="trailing" id="KIQ-ij-440"/>
-                <constraint firstItem="2fx-77-vI9" firstAttribute="top" secondItem="JUH-Zo-X50" secondAttribute="bottom" constant="8" id="RVo-fL-MiT"/>
-                <constraint firstItem="JUH-Zo-X50" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="5" id="Y4l-DU-vNz"/>
-                <constraint firstAttribute="bottom" secondItem="JUH-Zo-X50" secondAttribute="bottom" constant="30" id="f2H-EE-PNW"/>
-                <constraint firstItem="JUH-Zo-X50" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="g2P-Ef-pWD"/>
+                <constraint firstItem="2fx-77-vI9" firstAttribute="top" secondItem="JUH-Zo-X50" secondAttribute="bottom" id="RVo-fL-MiT"/>
+                <constraint firstItem="JUH-Zo-X50" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="Y4l-DU-vNz"/>
+                <constraint firstAttribute="bottom" secondItem="JUH-Zo-X50" secondAttribute="bottom" constant="20" id="f2H-EE-PNW"/>
+                <constraint firstItem="JUH-Zo-X50" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="hFJ-lm-FDE"/>
                 <constraint firstItem="2fx-77-vI9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="rtb-fe-g2a"/>
                 <constraint firstAttribute="bottom" secondItem="2fx-77-vI9" secondAttribute="bottom" id="sfv-wi-bwc"/>
-                <constraint firstAttribute="trailing" secondItem="JUH-Zo-X50" secondAttribute="trailing" constant="5" id="w0i-FG-CiT"/>
+                <constraint firstAttribute="trailing" secondItem="JUH-Zo-X50" secondAttribute="trailing" id="w0i-FG-CiT"/>
             </constraints>
         </customView>
         <collectionViewItem id="OTi-X1-o6z" customClass="SidebarThumbnail" customModule="MathConverter" customModuleProvider="target">

@@ -8,22 +8,23 @@
 
 import Cocoa
 
+
 class SelectionMainView: NSImageView {
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        configureSelectionMainView()
-    }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureSelectionMainView()
     }
     
-    func configureSelectionMainView(){
-        self.frame = NSRect(x: 0, y: 0, width: 100, height: 100)
-        self.isEditable = false
-        self.isEnabled = true
-        self.isHighlighted = true
-        self.imageScaling = NSImageScaling.scaleNone
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        configureSelectionMainView()
     }
+
+    func configureSelectionMainView() {
+        isEditable = false
+        isHighlighted = true
+        imageScaling = NSImageScaling.scaleNone
+    }
+
 }

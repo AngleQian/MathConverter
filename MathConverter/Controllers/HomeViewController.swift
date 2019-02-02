@@ -8,6 +8,7 @@
 
 import Cocoa
 
+
 class HomeViewController: NSViewController {
 
     var document: Document? {
@@ -16,7 +17,6 @@ class HomeViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear() {
@@ -29,6 +29,7 @@ class HomeViewController: NSViewController {
         }
     }
 }
+
 
 extension HomeViewController: DocumentObserver {
     func imageAddedOrRemoved() {

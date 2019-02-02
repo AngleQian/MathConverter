@@ -8,55 +8,60 @@
 
 import Cocoa
 
+
 class SelectionMainViewController: NSViewController {
-    @IBOutlet var scrollView: NSScrollView!
     
-//    var imageView = SelectionMainView(frame: NSRect(x: 0, y: 0, width: 0, height: 0))
-    @IBOutlet weak var imageView: SelectionMainView!
-    
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var selectionMainView: SelectionMainView!
     
     var document: Document? {
         return view.window?.windowController?.document as? Document
     }
+    
     var displayed = 0
+    
+    var selectionCanvasController: SelectionCanvasController
+    
+    required init?(coder: NSCoder) {
+        selectionCanvasController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SelectionCanvasController")) as! SelectionCanvasController
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        scrollView.documentView = imageView
+        scrollView.documentView = selectionMainView
+        
+        configureSelectionCanvas()
     }
     
     override func viewDidAppear() {
         document?.attachObserver(documentObserver: self)
     }
-    
+
     func refreshDisplay() {
         if let noOfImages = document?.noOfImages {
             if noOfImages > 0 && displayed >= 0 && displayed < noOfImages {
                 if let image = document?.images[displayed].image {
-                    imageView.image = image
-                    let center = CGPoint(x: 0, y: 0)
-                    imageView.frame = NSRect(origin: center, size: image.size)
-                    Swift.print(imageView.frame)
+                    selectionMainView.image = image
+                    selectionMainView.frame = NSRect(origin: CGPoint(x: 0, y: 0), size: image.size)
+                    selectionCanvasController.refreshCanvas(frame: NSRect(origin: CGPoint(x: 0, y: 0), size: image.size))
+                    Swift.print(selectionCanvasController.view.bounds)
                 }
             } else {
-                imageView.image = nil
-                imageView.frame = NSRect(x: 0, y: 0, width: 0, height: 0)
+                selectionMainView.image = nil
+                selectionMainView.frame = NSRect(x: 0, y: 0, width: 0, height: 0)
+                selectionCanvasController.refreshCanvas(frame: NSRect(x: 0, y: 0, width: 0, height: 0))
             }
-        } else {
         }
+        scrollView.magnification = 1
     }
     
-    func updateScrollBars(){
-        
+    func configureSelectionCanvas() {
+        scrollView.contentView.addSubview(selectionCanvasController.view, positioned: NSWindow.OrderingMode.above, relativeTo: nil)
+        selectionMainView.nextResponder = selectionCanvasController
     }
 }
 
-extension SelectionMainViewController: DragViewDelegate {
-    func dragView(didDragFileWith URL: URL) {
-//        document?.addImage(fileURL: URL)
-    }
-}
 
 extension SelectionMainViewController: DocumentObserver{
     func imageAddedOrRemoved() {
@@ -67,5 +72,4 @@ extension SelectionMainViewController: DocumentObserver{
         displayed = document?.displayed ?? 0
         refreshDisplay()
     }
-    
 }

@@ -8,11 +8,14 @@
 
 import Cocoa
 
+
 protocol DragViewDelegate {
     func dragView(didDragFileWith URL: URL)
 }
 
+
 class DragView : NSView {
+    
     var delegate: DragViewDelegate?
     
     private var acceptedFileExtensions = ["png", "jpdeg", "jpg"]

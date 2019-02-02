@@ -8,7 +8,31 @@
 
 import Cocoa
 
+
 class WindowController: NSWindowController {
+
+    @IBOutlet weak var removeImageButton: NSButton!
+    @IBOutlet weak var totalNoOfImagesSelections: NSTextField!
+    @IBOutlet weak var addSelectionButton: NSButton!
+    
+    
+    var selectionSplitViewController: SelectionSplitViewController {
+        get {
+            return window!.contentViewController! as! SelectionSplitViewController
+        }
+    }
+    
+    var selectionSidebarViewController: SelectionSidebarViewController {
+        get {
+            return selectionSplitViewController.splitViewItems[0].viewController as! SelectionSidebarViewController
+        }
+    }
+    
+    var document_: Document? {
+        get {
+            return document as? Document
+        }
+    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -20,11 +44,12 @@ class WindowController: NSWindowController {
         super.windowDidLoad()
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
         adjustWindowSize()
+        removeImageButton.isEnabled = true
     }
     
     func adjustWindowSize() {
-        let xRatio = 0.8
-        let yRatio = 0.8
+        let xRatio = 0.9
+        let yRatio = 0.9
         
         guard let screen = NSScreen.main else {
             fatalError("No screen?")
@@ -37,5 +62,25 @@ class WindowController: NSWindowController {
         let windowRect = CGRect(x: Double(window?.frame.origin.x ?? 0), y: Double(window?.frame.origin.y ?? 0), width: xRatio * sW, height: yRatio * sH) as NSRect
         
         window?.setFrame(windowRect, display: true, animate: true)
+    }
+    
+    
+    @IBAction func addImage(_ sender: Any) {
+        selectionSidebarViewController.addImage()
+    }
+    
+    @IBAction func removeImage(_ sender: Any) {
+        selectionSidebarViewController.removeImage()
+    }
+}
+
+
+extension WindowController: DocumentObserver {
+    func imageAddedOrRemoved() {
+        
+    }
+    
+    func displayChanged() {
+        
     }
 }

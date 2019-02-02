@@ -8,9 +8,17 @@
 
 import Cocoa
 
+
 class Image {
+    
     var image: NSImage?
     var filename: String
+    var selections = [ImageSelection]()
+    var noOfSelections: Int {
+        get {
+            return selections.count
+        }
+    }
     
     init(fileURL: URL) throws {
         image = NSImage(contentsOf: fileURL)
@@ -21,7 +29,5 @@ class Image {
         }
     }
     
-    func getNSImage() -> NSImage? {
-        return image
-    }
+    
 }
