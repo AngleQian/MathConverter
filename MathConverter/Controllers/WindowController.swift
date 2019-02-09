@@ -76,7 +76,7 @@ class WindowController: NSWindowController {
 
 
 extension WindowController: DocumentObserver {
-    func imageAddedOrRemoved() {
+    func documentChanged() {
         
     }
     

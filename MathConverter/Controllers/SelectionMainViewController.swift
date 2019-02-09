@@ -17,9 +17,11 @@ class SelectionMainViewController: NSViewController {
     var document: Document? {
         return view.window?.windowController?.document as? Document
     }
-    
-    var displayed = 0
-    
+    var displayed: Int {
+        get {
+            return document?.displayed ?? 0
+        }
+    }
     var selectionCanvasController: SelectionCanvasController
     
     required init?(coder: NSCoder) {
@@ -45,18 +47,17 @@ class SelectionMainViewController: NSViewController {
                     selectionMainView.image = image
                     selectionMainView.frame = NSRect(origin: CGPoint(x: 0, y: 0), size: image.size)
                     selectionCanvasController.refreshCanvas(frame: NSRect(origin: CGPoint(x: 0, y: 0), size: image.size))
-                    Swift.print(selectionCanvasController.view.bounds)
                 }
             } else {
                 selectionMainView.image = nil
-                selectionMainView.frame = NSRect(x: 0, y: 0, width: 0, height: 0)
-                selectionCanvasController.refreshCanvas(frame: NSRect(x: 0, y: 0, width: 0, height: 0))
+                selectionMainView.frame = NSZeroRect
+                selectionCanvasController.refreshCanvas(frame: NSZeroRect)
             }
         }
         scrollView.magnification = 1
     }
     
-    func configureSelectionCanvas() {
+    fileprivate func configureSelectionCanvas() {
         scrollView.contentView.addSubview(selectionCanvasController.view, positioned: NSWindow.OrderingMode.above, relativeTo: nil)
         selectionMainView.nextResponder = selectionCanvasController
     }
@@ -64,12 +65,11 @@ class SelectionMainViewController: NSViewController {
 
 
 extension SelectionMainViewController: DocumentObserver{
-    func imageAddedOrRemoved() {
+    func documentChanged() {
         
     }
     
     func displayChanged() {
-        displayed = document?.displayed ?? 0
         refreshDisplay()
     }
 }

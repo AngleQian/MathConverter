@@ -11,7 +11,7 @@ import Cocoa
 
 
 protocol DocumentObserver {
-    func imageAddedOrRemoved()
+    func documentChanged()
     func displayChanged()
 }
 
@@ -20,12 +20,17 @@ class Document: NSDocument {
     
     var images = [Image]()
     var noOfImages: Int {
-        get {
-            return images.count
-        }
+        return images.count
     }
     var selected = [Int]()
     var displayed = 0
+    var noOfSelections: Int {
+        var temp = 0
+        for image in images {
+            temp += image.noOfSelections
+        }
+        return temp
+    }
     
     override init() {
         super.init()
@@ -62,13 +67,13 @@ class Document: NSDocument {
     
     func addImageAtIndex(fileURL: URL, atIndex: Int){
         do {
-            let image = try Image(fileURL: fileURL)
+            let image = try Image(inDocument: self, withfileURL: fileURL)
             if atIndex >= noOfImages - 1 {
                 images.append(image)
             } else {
                 images.insert(image, at: atIndex + 1)
             }
-            imageAddedOrRemoved()
+            documentChanged()
         } catch ImageError.imageImportError(let path) {
             Swift.print("NSImage init() throws, from: '\(path)'")
         } catch {
@@ -81,20 +86,12 @@ class Document: NSDocument {
             Swift.print("removeImageAtIndex(): atIndex outofbounds \(atIndex)")
         } else {
             images.remove(at: atIndex)
-            imageAddedOrRemoved()
+            documentChanged()
         }
     }
     
     func imageAtIndex(atIndex: Int) -> Image{
         return images[atIndex]
-    }
-    
-    func noOfSelections() -> Int {
-        var noOfSelections = 0
-        for image in images {
-            noOfSelections += image.noOfSelections
-        }
-        return noOfSelections
     }
     
     private var documentObservers = [DocumentObserver]()
@@ -103,9 +100,9 @@ class Document: NSDocument {
         documentObservers.append(documentObserver)
     }
     
-    private func imageAddedOrRemoved(){
+    func documentChanged(){
         for documentObserver in documentObservers {
-            documentObserver.imageAddedOrRemoved()
+            documentObserver.documentChanged()
         }
     }
     

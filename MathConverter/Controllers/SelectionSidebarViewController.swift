@@ -79,7 +79,7 @@ class SelectionSidebarViewController: NSViewController {
         selectionsAdded(added: newSelection)
     }
     
-    func reloadData(){
+    fileprivate func reloadData(){
         selectionSidebar.reloadData()
         // reloadData() will clear all the selections
         selectionsRemoved(removed: selectionSidebar.selectionIndexPaths)
@@ -248,8 +248,8 @@ extension SelectionSidebarViewController: NSCollectionViewDelegateFlowLayout {
 
 
 extension SelectionSidebarViewController: DocumentObserver {
-    func imageAddedOrRemoved() {
-        totalNoOfImagesSelections.stringValue = String(document?.noOfImages ?? 0) + " / " + String(document?.noOfSelections() ?? 0)
+    func documentChanged() {
+        totalNoOfImagesSelections.stringValue = String(document?.noOfImages ?? 0) + " / " + String(document?.noOfSelections ?? 0)
     }
     
     func displayChanged() {

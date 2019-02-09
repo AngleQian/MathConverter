@@ -32,7 +32,7 @@ class HomeViewController: NSViewController {
 
 
 extension HomeViewController: DocumentObserver {
-    func imageAddedOrRemoved() {
+    func documentChanged() {
         
     }
     
