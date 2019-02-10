@@ -106,7 +106,7 @@ class Document: NSDocument {
         }
     }
     
-    private func changeDisplay(to: Int) {
+    fileprivate func changeDisplay(to: Int) {
         displayed = to
         for documentObserver in documentObservers {
             documentObserver.displayChanged()

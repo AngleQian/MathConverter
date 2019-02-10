@@ -22,6 +22,7 @@
 		530C369E21E1ED4C000878B9 /* SidebarThumbnail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530C369C21E1ED4C000878B9 /* SidebarThumbnail.xib */; };
 		530C36A021E1EDAF000878B9 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C369F21E1EDAF000878B9 /* Image.swift */; };
 		530C36A221E1F1E1000878B9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C36A121E1F1E1000878B9 /* Errors.swift */; };
+		5339EAD22210220C0078EC28 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339EAD12210220C0078EC28 /* Styles.swift */; };
 		53DA929821F5A398006913C1 /* SelectionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929721F5A398006913C1 /* SelectionMainView.swift */; };
 		53DA929A21F85EAB006913C1 /* CenteringClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929921F85EAB006913C1 /* CenteringClipView.swift */; };
 		53DA929C21F8C35D006913C1 /* ImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929B21F8C35D006913C1 /* ImageSelection.swift */; };
@@ -54,6 +55,7 @@
 		530C369C21E1ED4C000878B9 /* SidebarThumbnail.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SidebarThumbnail.xib; path = MathConverter/Resources/SidebarThumbnail.xib; sourceTree = SOURCE_ROOT; };
 		530C369F21E1EDAF000878B9 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Image.swift; path = MathConverter/Model/Image.swift; sourceTree = SOURCE_ROOT; };
 		530C36A121E1F1E1000878B9 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = MathConverter/Model/Errors.swift; sourceTree = SOURCE_ROOT; };
+		5339EAD12210220C0078EC28 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		53DA929721F5A398006913C1 /* SelectionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectionMainView.swift; path = MathConverter/Views/SelectionMainView.swift; sourceTree = SOURCE_ROOT; };
 		53DA929921F85EAB006913C1 /* CenteringClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CenteringClipView.swift; path = MathConverter/Views/CenteringClipView.swift; sourceTree = SOURCE_ROOT; };
 		53DA929B21F8C35D006913C1 /* ImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageSelection.swift; path = MathConverter/Model/ImageSelection.swift; sourceTree = SOURCE_ROOT; };
@@ -117,6 +119,7 @@
 				530C365A21DF24C0000878B9 /* MathConverter.entitlements */,
 				53FF2AF62205D27B0015D4E1 /* Enums.swift */,
 				53FF2AFA22074A870015D4E1 /* Structs.swift */,
+				5339EAD12210220C0078EC28 /* Styles.swift */,
 			);
 			path = MathConverter;
 			sourceTree = SOURCE_ROOT;
@@ -319,6 +322,7 @@
 				530C369121E0904C000878B9 /* SelectionMainViewController.swift in Sources */,
 				530C36A221E1F1E1000878B9 /* Errors.swift in Sources */,
 				530C369421E0904C000878B9 /* AppDelegate.swift in Sources */,
+				5339EAD22210220C0078EC28 /* Styles.swift in Sources */,
 				530C366321DF27D3000878B9 /* Converter.swift in Sources */,
 				530C369621E0904C000878B9 /* SelectionSidebarViewController.swift in Sources */,
 				530C369521E0904C000878B9 /* SelectionSplitViewController.swift in Sources */,

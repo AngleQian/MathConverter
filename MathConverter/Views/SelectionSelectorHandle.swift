@@ -39,8 +39,8 @@ class SelectionSelectorHandle: NSObject {
         self.type = type
         self.selector = selector
 
-        strokeColor = selector.strokeColorSelected
-        fillColor = selector.fillColorSelected
+        strokeColor = selector.currentStrokeColor
+        fillColor = selector.currentFillColor
         size = NSSize(width: 10, height: 10)
         lineWidth = 1.0
     }

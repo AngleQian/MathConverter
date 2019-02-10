@@ -45,29 +45,43 @@ class SelectionSelector {
         }
     }
     var trackingArea: NSTrackingArea?
+    var resultStatus: SelectionResultStatus
     
     // MARK: - Style properties
     
     var currentStrokeColor: NSColor {
-        get {
-            return isPicker ? strokeColorPicker : (isSelected ? strokeColorSelected : strokeColorUnselected)
+        if isPicker {
+            return Color.gray
+        } else {
+            switch resultStatus {
+            case .notConverted:
+                return Color.blue
+            case .converted:
+                return Color.green
+            case .error:
+                return Color.red
+            }
         }
     }
     
     var currentFillColor: NSColor {
-        get {
-            return isPicker ? fillColorPicker : (isSelected ? fillColorSelected : fillColorUnselected)
+        if isPicker {
+            return Color.lightGray
+        } else {
+            switch resultStatus {
+            case .notConverted:
+                return Color.lightBlue
+            case .converted:
+                return Color.lightGreen
+            case .error:
+                return Color.lightRed
+            }
         }
     }
     
     var minHeight, minWidth: CGFloat
     
-    var strokeColorPicker, fillColorPicker: NSColor
     var lineWidthPicker: CGFloat
-    
-    /// Following styles all relate to non-picker selectors
-    var strokeColorUnselected, fillColorUnselected: NSColor
-    var strokeColorSelected, fillColorSelected: NSColor
     
     var lineWidthUnselected: CGFloat
     var lineWidthSelected: CGFloat
@@ -84,23 +98,13 @@ class SelectionSelector {
         isSelected = false
         
         currentAction = .initialize
+        resultStatus = .notConverted
         
         minWidth = 30
         minHeight = 30
-        
-        
-        strokeColorPicker = NSColor.systemGray
-        fillColorPicker = NSColor.systemGray.withAlphaComponent(0.3)
         lineWidthPicker = 0.5
-        
-        strokeColorUnselected = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0, alpha: 0.7)
-        fillColorUnselected = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0, alpha: 0.3)
-        strokeColorSelected = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0, alpha: 1.0)
-        fillColorSelected = fillColorUnselected
-        
-        lineWidthSelected = 1
-        lineWidthUnselected = 1
-        
+        lineWidthSelected = 0.5
+        lineWidthUnselected = 0.5
         isLineDashedUnselected = true
         isLineDashedSelected = false
         
@@ -134,7 +138,7 @@ class SelectionSelector {
     
     func isIntersecting(forRect rect: NSRect) -> Bool {
         // isTouchingHandle() must be called. If order is switched, it might not be called due to short-circuit evaluation
-        return isTouchingHandle(forRect: rect) || frame.contains(rect)
+        return isTouchingHandle(forRect: rect) || frame.intersects(rect)
     }
     
     func isTouchingHandle(forPoint point: NSPoint) -> Bool {
@@ -240,61 +244,6 @@ class SelectionSelector {
     
     fileprivate func resizeClamping(forPoint point: NSPoint) -> NSPoint {
         return outsideCanvasClamping(forPoint: point)
-        
-//        guard let handle = currentHandle else {
-//            return newPoint
-//        }
-//
-//        switch handle.type {
-//        case .topLeft:
-//            if point.x < canvas.bounds.origin.x {
-//                newPoint.x = canvas.bounds.origin.x
-//            } else if point.x > (frame.origin.x + frame.size.width - minWidth) {
-//                newPoint.x = (frame.origin.x + frame.size.width - minWidth)
-//            }
-//            if point.y > (canvas.bounds.origin.y + canvas.bounds.size.height) {
-//                newPoint.y = canvas.bounds.origin.y + canvas.bounds.size.height
-//            } else if point.y < (frame.origin.y + minHeight) {
-//                newPoint.y = frame.origin.y + minHeight
-//            }
-//            break
-//        case .topRight:
-//            if point.x > (canvas.bounds.origin.x + canvas.bounds.size.width) {
-//                newPoint.x = canvas.bounds.origin.x + canvas.bounds.size.width
-//            } else if point.x < (frame.origin.x + minWidth) {
-//                newPoint.x = frame.origin.x + minWidth
-//            }
-//            if point.y > (canvas.bounds.origin.y + canvas.bounds.size.height) {
-//                newPoint.y = canvas.bounds.origin.y + canvas.bounds.size.height
-//            } else if point.y < (frame.origin.y + minHeight) {
-//                newPoint.y = frame.origin.y + minHeight
-//            }
-//            break
-//        case .bottomLeft:
-//            if point.x < canvas.bounds.origin.x {
-//                newPoint.x = canvas.bounds.origin.x
-//            } else if point.x > (frame.origin.x + frame.size.width - minWidth) {
-//                newPoint.x = (frame.origin.x + frame.size.width - minWidth)
-//            }
-//            if point.y < canvas.bounds.origin.x {
-//                newPoint.y = canvas.bounds.origin.x
-//            } else if point.y > (frame.origin.y + frame.size.height - minHeight) {
-//                newPoint.y = frame.origin.y + frame.size.height - minHeight
-//            }
-//            break
-//        case .bottomRight:
-//            if point.x > (canvas.bounds.origin.x + canvas.bounds.size.width) {
-//                newPoint.x = canvas.bounds.origin.x + canvas.bounds.size.width
-//            } else if point.x < (frame.origin.x + minWidth) {
-//                newPoint.x = frame.origin.x + minWidth
-//            }
-//            if point.y < canvas.bounds.origin.x {
-//                newPoint.y = canvas.bounds.origin.x
-//            } else if point.y > (frame.origin.y + frame.size.height - minHeight) {
-//                newPoint.y = frame.origin.y + frame.size.height - minHeight
-//            }
-//            break
-//        }
     }
     
     fileprivate func moveClamping(forPoint point: NSPoint, relativeTo relative: NSPoint) -> NSPoint {

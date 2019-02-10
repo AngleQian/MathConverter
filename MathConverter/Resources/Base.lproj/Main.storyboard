@@ -718,6 +718,9 @@
                                                 <segment label="Result" width="82" tag="1"/>
                                             </segments>
                                         </segmentedCell>
+                                        <connections>
+                                            <action selector="toggleWindowButton:" target="jGA-0Y-lOj" id="mMU-TR-aOh"/>
+                                        </connections>
                                     </segmentedControl>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4DAFBA8A-C6FA-4FD8-8B73-5A655E17E252" label="Images / Selections" paletteLabel="Images / Selections" sizingBehavior="auto" selectable="YES" id="HLj-Gf-pOH">
@@ -783,6 +786,7 @@
                         <outlet property="addSelectionButton" destination="WSK-h0-bo7" id="9Sh-OK-SSy"/>
                         <outlet property="removeImageButton" destination="D3U-VJ-NRg" id="iQ7-xl-u50"/>
                         <outlet property="totalNoOfImagesSelections" destination="sY3-5v-Bmz" id="AoN-K9-CGx"/>
+                        <outlet property="windowButton" destination="V10-1w-RDz" id="uho-8b-UfO"/>
                         <segue destination="x5l-qL-pME" kind="relationship" relationship="window.shadowedContentViewController" id="Ud5-wR-lwF"/>
                     </connections>
                 </windowController>
@@ -874,7 +878,8 @@
         <!--Selection Main View Controller-->
         <scene sceneID="DV5-Od-2ab">
             <objects>
-                <viewController id="qEJ-mR-VVg" customClass="SelectionMainViewController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
+                <customObject id="3sB-De-p8X" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="SelectionMainViewController" id="qEJ-mR-VVg" customClass="SelectionMainViewController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <scrollView key="view" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" usesPredominantAxisScrolling="NO" id="HEk-Kz-Cb5">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -921,9 +926,21 @@
                         <outlet property="selectionMainView" destination="SbW-Oy-co1" id="byt-Vk-1gd"/>
                     </connections>
                 </viewController>
-                <customObject id="3sB-De-p8X" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="302" y="1204"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Od0-2g-B7r">
+            <objects>
+                <viewController storyboardIdentifier="ResultMainViewController" id="Lp3-mu-S4Z" sceneMemberID="viewController">
+                    <view key="view" id="Sn2-W8-XWI">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="6bp-BQ-6aX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="782" y="1204"/>
         </scene>
         <!--Selection Canvas Controller-->
         <scene sceneID="XHu-tX-8Ux">

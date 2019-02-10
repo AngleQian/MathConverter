@@ -14,7 +14,7 @@ class WindowController: NSWindowController {
     @IBOutlet weak var removeImageButton: NSButton!
     @IBOutlet weak var totalNoOfImagesSelections: NSTextField!
     @IBOutlet weak var addSelectionButton: NSButton!
-    
+    @IBOutlet weak var windowButton: NSSegmentedControl!
     
     var selectionSplitViewController: SelectionSplitViewController {
         get {
@@ -48,20 +48,20 @@ class WindowController: NSWindowController {
     }
     
     func adjustWindowSize() {
-        let xRatio = 0.9
-        let yRatio = 0.9
-        
-        guard let screen = NSScreen.main else {
-            fatalError("No screen?")
-        }
-        
-        let screenRect: NSRect
-        screenRect = screen.frame
-        let sH = Double(screenRect.size.height)
-        let sW = Double(screenRect.size.width)
-        let windowRect = CGRect(x: Double(window?.frame.origin.x ?? 0), y: Double(window?.frame.origin.y ?? 0), width: xRatio * sW, height: yRatio * sH) as NSRect
-        
-        window?.setFrame(windowRect, display: true, animate: true)
+//        let xRatio = 0.9
+//        let yRatio = 0.9
+//        
+//        guard let screen = NSScreen.main else {
+//            fatalError("No screen?")
+//        }
+//        
+//        let screenRect: NSRect
+//        screenRect = screen.frame
+//        let sH = Double(screenRect.size.height)
+//        let sW = Double(screenRect.size.width)
+//        let windowRect = CGRect(x: Double(window?.frame.origin.x ?? 0), y: Double(window?.frame.origin.y ?? 0), width: xRatio * sW, height: yRatio * sH) as NSRect
+//        
+//        window?.setFrame(windowRect, display: true, animate: true)
     }
     
     
@@ -72,6 +72,11 @@ class WindowController: NSWindowController {
     @IBAction func removeImage(_ sender: Any) {
         selectionSidebarViewController.removeImage()
     }
+    
+    @IBAction func toggleWindowButton(_ sender: NSSegmentedControl) {
+        selectionSplitViewController.toggleWindowButton()
+    }
+    
 }
 
 

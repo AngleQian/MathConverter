@@ -18,18 +18,9 @@ protocol SelectionSidebarSelectionObserver {
 class SelectionSidebarViewController: NSViewController {
     
     @IBOutlet weak var selectionSidebar: NSCollectionView!
-
-    // never used
-    var removeImageButton: NSButton {
-        get {
-            return (view.window!.windowController! as! WindowController).removeImageButton
-        }
-    }
     
     var totalNoOfImagesSelections: NSTextField {
-        get {
-            return (view.window!.windowController! as! WindowController).totalNoOfImagesSelections
-        }
+        return (view.window!.windowController! as! WindowController).totalNoOfImagesSelections
     }
     
     var document: Document? {
@@ -40,6 +31,7 @@ class SelectionSidebarViewController: NSViewController {
         super.viewDidLoad()
         configureCollectionView()
         registerDragAndDrop()
+        refreshLayout()
     }
     
     override func viewDidAppear() {
@@ -52,7 +44,7 @@ class SelectionSidebarViewController: NSViewController {
     private func configureCollectionView() {
         let flowLayout = NSCollectionViewFlowLayout()
     
-//        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         flowLayout.minimumInteritemSpacing = 100.0
         flowLayout.minimumLineSpacing = 20.0
         
@@ -239,7 +231,7 @@ extension SelectionSidebarViewController: NSCollectionViewDelegate {
 
 extension SelectionSidebarViewController: NSCollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        let newWidth = selectionSidebar.frame.width - 2 * 20 - 20
+        let newWidth = selectionSidebar.frame.width - 2 * 20
         let ratio = newWidth / document!.images[indexPath.item].image!.size.width
         let newHeight = ratio * document!.images[indexPath.item].image!.size.height
         return NSSize(width: newWidth, height: newHeight)

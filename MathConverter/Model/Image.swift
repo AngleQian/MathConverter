@@ -34,18 +34,16 @@ class Image {
     }
     
     func addSelection(with selection: ImageSelection) {
-        Swift.print("Append")
         selections.append(selection)
     }
     
     func removeSelection(with selector: SelectionSelector) {
         if let i = selections.firstIndex(where: {$0 == selector}) {
-            Swift.print("remove")
             selections.remove(at: i)
         }
     }
-    
 }
+
 
 extension ImageSelection: Equatable {
     static func == (lhs: ImageSelection, rhs: ImageSelection) -> Bool {

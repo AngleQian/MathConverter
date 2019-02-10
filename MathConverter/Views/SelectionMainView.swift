@@ -15,11 +15,6 @@ class SelectionMainView: NSImageView {
         super.init(coder: coder)
         configureSelectionMainView()
     }
-    
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        configureSelectionMainView()
-    }
 
     func configureSelectionMainView() {
         isEditable = false

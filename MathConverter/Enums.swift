@@ -22,9 +22,16 @@ enum SelectorActionStatus {
     case initialize
 }
 
+
 enum SelectorHandleType {
     case topLeft
     case topRight
     case bottomLeft
     case bottomRight
+}
+
+enum SelectionResultStatus {
+    case notConverted
+    case converted
+    case error
 }
