@@ -30,6 +30,7 @@ class SelectionCanvasController: NSViewController {
         }
     }
     var gotHitSelectorsCounter: Int = 0
+    var isMouseDown = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class SelectionCanvasController: NSViewController {
     
     override func viewDidAppear() {
         document?.attachObserver(documentObserver: self)
+        loadFromDocument()
     }
     
     func refreshCanvas(frame: NSRect) {
@@ -51,13 +53,16 @@ class SelectionCanvasController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
+        isMouseDown = true
+        view.window?.disableCursorRects()
+        
         let point = view.convert(event.locationInWindow, from: nil)
         let frame = NSRect(x: point.x, y: point.y, width: 0, height: 0)
         
         markAllSelectors(asSelected: false)
         
         if isAddSelectionMode {
-            addSelector(withFrame: frame, asPicker: false)
+            addSelector(withFrame: frame, asPicker: false, withStatus: .notConverted)
             return
         }
         
@@ -81,7 +86,7 @@ class SelectionCanvasController: NSViewController {
             return
         }
         
-        addSelector(withFrame: frame, asPicker: true)
+        addSelector(withFrame: frame, asPicker: true, withStatus: nil)
     }
     
     override func mouseDragged(with event: NSEvent) {
@@ -94,7 +99,7 @@ class SelectionCanvasController: NSViewController {
         if selector.currentAction == .initialize {
             selector.resize(toPoint: point)
         } else {
-            document.images[document.displayed].removeSelection(with: selector)
+            let removedSelection = document.images[document.displayed].removeSelection(with: selector)
             
             if selector.currentAction == .resize {
                 selector.resize(toPoint: point)
@@ -102,7 +107,7 @@ class SelectionCanvasController: NSViewController {
                 selector.move(toPoint: point, relativeTo: previousMouseDownPoint)
             }
             
-            document.images[document.displayed].addSelection(with: ImageSelection(selector.frame))
+            document.images[document.displayed].addSelection(withModifiedRect: selector.frame, basedOn: removedSelection)
         }
         
         if selector.isPicker {
@@ -117,6 +122,8 @@ class SelectionCanvasController: NSViewController {
     }
     
     override func mouseUp(with event: NSEvent) {
+        isMouseDown = false
+        
         guard let document = document else {
             return
         }
@@ -127,7 +134,7 @@ class SelectionCanvasController: NSViewController {
                     selectors.removeLast()
                     currentSelector = nil
                 } else {
-                    document.images[document.displayed].addSelection(with: ImageSelection(currentSelector!.frame))
+                    document.images[document.displayed].addSelection(withRect: selector.frame)
                 }
             }
         } else {
@@ -190,8 +197,8 @@ class SelectionCanvasController: NSViewController {
         return NSRect(x: X, y: Y, width: W, height: H)
     }
     
-    fileprivate func addSelector(withFrame frame: NSRect, asPicker picker: Bool) {
-        currentSelector = SelectionSelector(asPicker: picker, forCanvas: (view as! SelectionCanvas), withFrame: frame)
+    fileprivate func addSelector(withFrame frame: NSRect, asPicker picker: Bool, withStatus status: SelectionResultStatus?) {
+        currentSelector = SelectionSelector(asPicker: picker, forCanvas: (view as! SelectionCanvas), withFrame: frame, withStatus: status)
         if !picker {
             currentSelector!.isSelected = true
             selectors.append(currentSelector!)
@@ -263,22 +270,50 @@ class SelectionCanvasController: NSViewController {
         previousMouseDownPoint = NSZeroPoint
         gotHitSelectorsCounter = 0
         
+        guard document.noOfImages != 0, document.displayed < document.noOfImages else {
+            return
+        }
+        
         for selection in document.images[document.displayed].selections {
-            addSelector(withFrame: selection.selectionRect, asPicker: false)
+            addSelector(withFrame: selection.selectionRect, asPicker: false, withStatus: selection.status)
         }
         markAllSelectors(asSelected: false)
     }
+    
+    fileprivate func updateSelectorStatus(for imageSelection: ImageSelection) {
+        guard let document = document, document.noOfImages != 0, document.displayed < document.noOfImages else {
+            return
+        }
+        
+        let selectionSelector = selectors.first(where: {imageSelection == $0})
+        selectionSelector?.resultStatus = imageSelection.status
+        if let currentSelector = currentSelector, imageSelection == currentSelector {
+            currentSelector.resultStatus = imageSelection.status
+        }
+        
+        view.needsDisplay = true
+    }
 }
+
 
 extension SelectionCanvasController: SelectionCanvasDelegate {
     
 }
 
+
 extension SelectionCanvasController: DocumentObserver {
+    func documentLoaded() {
+        loadFromDocument()
+    }
+    
     func documentChanged() {
     }
     
     func displayChanged() {
         loadFromDocument()
+    }
+    
+    func conversionStatusChanged(for imageSelection: ImageSelection) {
+        updateSelectorStatus(for: imageSelection)
     }
 }

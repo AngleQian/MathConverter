@@ -696,7 +696,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="4kJ-zE-ePD"/>
                                 <toolbarItem implicitItemIdentifier="AFCE6F84-B751-47D8-A12E-EBBFE50CB529" label="Areas for Conversion" paletteLabel="Areas for Conversion" sizingBehavior="auto" selectable="YES" id="pwz-MD-syx">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="WSK-h0-bo7">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" id="WSK-h0-bo7">
                                         <rect key="frame" x="1" y="14" width="115" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Add Selection" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30K-IK-F00">
@@ -708,7 +708,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="8be-q3-F5Z"/>
                                 <toolbarItem implicitItemIdentifier="E94785BA-14F5-4FB7-96CC-FD69D43C273E" label="Window" paletteLabel="Window" sizingBehavior="auto" id="wab-AG-QCg">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" id="V10-1w-RDz">
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" id="V10-1w-RDz">
                                         <rect key="frame" x="0.0" y="14" width="172" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="z2V-Dv-yHq">
@@ -737,8 +737,8 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5BC0556D-6E5F-4420-B879-11D07E76A8C4" label="Remove Image" paletteLabel="Remove Image" image="NSRemoveTemplate" sizingBehavior="auto" id="mFb-9H-7UT">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="D3U-VJ-NRg">
-                                        <rect key="frame" x="0.0" y="14" width="127" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="D3U-VJ-NRg">
+                                        <rect key="frame" x="0.0" y="14" width="123" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cry-46-rij">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -751,7 +751,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6A33F29B-669B-451B-BEDF-142981F9D69D" label="Add Image" paletteLabel="Add Image" image="NSAddTemplate" sizingBehavior="auto" id="H86-WQ-2Zt">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="xH8-tE-1Ek">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="xH8-tE-1Ek">
                                         <rect key="frame" x="0.0" y="14" width="127" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ls1-X8-IfN">
@@ -766,6 +766,20 @@
                                         <action selector="addImage:" target="jGA-0Y-lOj" id="8Hb-ve-3tj"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F6E7E869-6737-4A80-AA5D-4DC191404DAB" label="Selections" paletteLabel="Selections" sizingBehavior="auto" id="F4R-8e-alH">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="105-kW-ZYu">
+                                        <rect key="frame" x="0.0" y="14" width="82" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Convert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fLD-J6-3B1">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="convertSelectionsButton:" target="jGA-0Y-lOj" id="wle-TD-E02"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="H86-WQ-2Zt"/>
@@ -775,6 +789,8 @@
                                 <toolbarItem reference="4kJ-zE-ePD"/>
                                 <toolbarItem reference="pwz-MD-syx"/>
                                 <toolbarItem reference="4kJ-zE-ePD"/>
+                                <toolbarItem reference="F4R-8e-alH"/>
+                                <toolbarItem reference="8be-q3-F5Z"/>
                                 <toolbarItem reference="wab-AG-QCg"/>
                             </defaultToolbarItems>
                         </toolbar>
@@ -784,6 +800,7 @@
                     </window>
                     <connections>
                         <outlet property="addSelectionButton" destination="WSK-h0-bo7" id="9Sh-OK-SSy"/>
+                        <outlet property="convertSelectionsButton" destination="105-kW-ZYu" id="NXQ-eu-uN2"/>
                         <outlet property="removeImageButton" destination="D3U-VJ-NRg" id="iQ7-xl-u50"/>
                         <outlet property="totalNoOfImagesSelections" destination="sY3-5v-Bmz" id="AoN-K9-CGx"/>
                         <outlet property="windowButton" destination="V10-1w-RDz" id="uho-8b-UfO"/>
@@ -929,18 +946,58 @@
             </objects>
             <point key="canvasLocation" x="302" y="1204"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Od0-2g-B7r">
+        <!--Results View Controller-->
+        <scene sceneID="jg9-DC-SVh">
             <objects>
-                <viewController storyboardIdentifier="ResultMainViewController" id="Lp3-mu-S4Z" sceneMemberID="viewController">
-                    <view key="view" id="Sn2-W8-XWI">
+                <viewController storyboardIdentifier="ResultsViewController" id="cnO-VH-QGK" customClass="ResultsViewController" customModule="MathConverter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="ErN-X7-HDF">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWY-dv-npM">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <clipView key="contentView" id="N3f-WL-4Zf">
+                                    <rect key="frame" x="1" y="1" width="448" height="298"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="P1C-Yy-RuZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="448" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Yhj-Xx-jNx">
+                                                <size key="itemSize" width="50" height="50"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="cnO-VH-QGK" id="7rV-ze-cZB"/>
+                                                <outlet property="delegate" destination="cnO-VH-QGK" id="3Gp-oG-KqQ"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="bGd-sU-9We">
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6Ro-lU-G5F">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="CWY-dv-npM" secondAttribute="bottom" id="1FI-Jv-XgW"/>
+                            <constraint firstAttribute="trailing" secondItem="CWY-dv-npM" secondAttribute="trailing" id="6Ks-6t-Htp"/>
+                            <constraint firstItem="CWY-dv-npM" firstAttribute="top" secondItem="ErN-X7-HDF" secondAttribute="top" id="bdg-gY-Kto"/>
+                            <constraint firstItem="CWY-dv-npM" firstAttribute="leading" secondItem="ErN-X7-HDF" secondAttribute="leading" id="pd1-bp-jVS"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="resultsView" destination="P1C-Yy-RuZ" id="dcj-DB-z6F"/>
+                    </connections>
                 </viewController>
-                <customObject id="6bp-BQ-6aX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="utM-TZ-Ot5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="782" y="1204"/>
+            <point key="canvasLocation" x="814" y="1204"/>
         </scene>
         <!--Selection Canvas Controller-->
         <scene sceneID="XHu-tX-8Ux">

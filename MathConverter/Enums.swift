@@ -9,13 +9,7 @@
 import Foundation
 
 
-/// Defines the current action of a selector
-///
-/// - none: no action
-/// - resize: resizing
-/// - move: moving
-/// - initialize: initializing
-enum SelectorActionStatus {
+enum SelectorActionStatus{
     case none
     case resize
     case move
@@ -30,8 +24,10 @@ enum SelectorHandleType {
     case bottomRight
 }
 
-enum SelectionResultStatus {
-    case notConverted
+
+enum SelectionResultStatus: Int {
+    case notConverted = 0
+    case pending
     case converted
     case error
 }

@@ -6,12 +6,18 @@
 //  Copyright © 2019 Angle Qian. All rights reserved.
 //
 
-import Foundation
 import Cocoa
 import Alamofire
 
 
-func convertImage(image: NSImage){
+protocol ConverterCaller {
+    func responseError(_: Error)
+    func response(_: HTTPURLResponse)
+    func result(_: NSDictionary)
+}
+
+
+func convertImage(image: NSImage, caller: ConverterCaller) {
     Swift.print("Converting")
     
     let headers = [
@@ -25,10 +31,11 @@ func convertImage(image: NSImage){
     let session = URLSession.shared
     let dataTask: URLSessionDataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
         if (error != nil) {
-            Swift.print("Lol: \(error!)")
+            caller.responseError(error!)
+            Swift.print("DataTask request error: \(error!)")
         } else {
             let httpResponse = response as? HTTPURLResponse
-            Swift.print(httpResponse!)
+            caller.response(httpResponse!)
         }
     })
     
@@ -37,7 +44,6 @@ func convertImage(image: NSImage){
     request.httpBody = postData as Data
     
     dataTask.resume()
-    
     
     if let base64string = image.base64String {
         let parameters : Parameters = [
@@ -53,45 +59,8 @@ func convertImage(image: NSImage){
             ])
             .responseJSON{ response in
                 if let JSON = response.result.value {
-                    print("\(JSON)")
+                    caller.result(JSON as! NSDictionary)
                 }
         }
     }
 }
-
-
-extension NSImage {
-    var base64String: String? {
-        guard let rep = NSBitmapImageRep(
-            bitmapDataPlanes: nil,
-            pixelsWide: Int(size.width),
-            pixelsHigh: Int(size.height),
-            bitsPerSample: 8,
-            samplesPerPixel: 4,
-            hasAlpha: true,
-            isPlanar: false,
-            colorSpaceName: .calibratedRGB,
-            bytesPerRow: 0,
-            bitsPerPixel: 0
-            ) else {
-                print("Couldn't create bitmap representation")
-                return nil
-        }
-        
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
-        draw(at: NSZeroPoint, from: NSZeroRect, operation: .sourceOver, fraction: 1.0)
-        NSGraphicsContext.restoreGraphicsState()
-        
-        guard let data = rep.representation(using: NSBitmapImageRep.FileType.png, properties: [NSBitmapImageRep.PropertyKey.compressionFactor: 1.0]) else {
-            print("Couldn't create PNG")
-            return nil
-        }
-        
-        // With prefix
-        // return "data:image/png;base64,\(data.base64EncodedString(options: []))"
-        // Without prefix
-        return data.base64EncodedString(options: [])
-    }
-}
-

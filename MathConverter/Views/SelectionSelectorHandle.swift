@@ -48,6 +48,10 @@ class SelectionSelectorHandle: NSObject {
     // MARK: - draw()
     
     func draw() {
+        guard selector.canResize else {
+            return
+        }
+        
         refreshHandleFrame(withSelectorFrame: selector.frame)
         strokeColor.setStroke()
         bezierPath.stroke()
@@ -56,13 +60,13 @@ class SelectionSelectorHandle: NSObject {
     /// MARK: - Public methods
 
     func refreshTrackingArea() {
-        if selector.isSelected {
+        if let area = trackingArea {
+            selector.canvas.removeTrackingArea(area)
+            trackingArea = nil
+        }
+        
+        if (selector.isSelected && selector.canResize) {
             let trackingRect = (selector.canvas.delegate as! SelectionCanvasController).newRect(forFrame: frame)
-            
-            if let area = trackingArea {
-                selector.canvas.removeTrackingArea(area)
-                trackingArea = nil
-            }
             
             var cursor = NSCursor.arrow
             
@@ -75,11 +79,6 @@ class SelectionSelectorHandle: NSObject {
             let options = NSTrackingArea.Options.activeInKeyWindow.rawValue | NSTrackingArea.Options.mouseEnteredAndExited.rawValue
             trackingArea = NSTrackingArea(rect: trackingRect, options: NSTrackingArea.Options(rawValue: options), owner: selector.canvas, userInfo: ["Cursor": cursor, "Rect": NSStringFromRect(trackingRect), "isCanvasTrackingArea": false])
             selector.canvas.addTrackingArea(trackingArea!)
-        } else {
-            if let area = trackingArea {
-                selector.canvas.removeTrackingArea(area)
-                trackingArea = nil
-            }
         }
     }
     

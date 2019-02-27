@@ -34,8 +34,7 @@ class SidebarThumbnail: NSCollectionViewItem {
         super.viewDidLoad()
         view.wantsLayer = true
         view.layer?.borderWidth = 0.0
-        view.layer?.borderColor = NSColor(calibratedRed: 0.0, green: 0.7, blue: 1.0, alpha: 1.0).cgColor
-
+        view.layer?.borderColor = NSColor(calibratedRed: 0.0, green: 0.7, blue: 1.0, alpha: 1.0).cgColor        
     }
     
     func setHighlight(selected: Bool) {

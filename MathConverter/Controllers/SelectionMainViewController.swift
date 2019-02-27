@@ -64,12 +64,20 @@ class SelectionMainViewController: NSViewController {
 }
 
 
-extension SelectionMainViewController: DocumentObserver{
+extension SelectionMainViewController: DocumentObserver {
+    func documentLoaded() {
+        refreshDisplay()
+    }
+    
     func documentChanged() {
         
     }
     
     func displayChanged() {
         refreshDisplay()
+    }
+    
+    func conversionStatusChanged(for imageSelection: ImageSelection) {
+        
     }
 }

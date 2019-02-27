@@ -12,3 +12,12 @@ import Foundation
 enum ImageError: Error {
     case imageImportError(String)
 }
+
+enum ConversionError: Error {
+    
+}
+
+enum DocumentError: Error {
+    case deserializationError(String)
+    case serializationError(String)
+}

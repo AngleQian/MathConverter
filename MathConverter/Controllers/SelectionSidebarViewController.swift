@@ -31,7 +31,6 @@ class SelectionSidebarViewController: NSViewController {
         super.viewDidLoad()
         configureCollectionView()
         registerDragAndDrop()
-        refreshLayout()
     }
     
     override func viewDidAppear() {
@@ -39,12 +38,13 @@ class SelectionSidebarViewController: NSViewController {
         if let doc = document {
             attachObserver(observer: doc)
         }
+        refreshLayout()
     }
 
     private func configureCollectionView() {
         let flowLayout = NSCollectionViewFlowLayout()
     
-        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 20.0, left: 10.0, bottom: 10.0, right: 10.0)
         flowLayout.minimumInteritemSpacing = 100.0
         flowLayout.minimumLineSpacing = 20.0
         
@@ -75,10 +75,15 @@ class SelectionSidebarViewController: NSViewController {
         selectionSidebar.reloadData()
         // reloadData() will clear all the selections
         selectionsRemoved(removed: selectionSidebar.selectionIndexPaths)
+        refreshLayout()
     }
     
     func refreshLayout() {
-        selectionSidebar.collectionViewLayout?.invalidateLayout()
+        if let layout = selectionSidebar.collectionViewLayout {
+            layout.invalidateLayout()
+        } else {
+            Swift.print("refreshLayout() failed")
+        }
     }
     
     // atIndex of the current selection
@@ -190,7 +195,6 @@ class SelectionSidebarViewController: NSViewController {
             observer.selectionsRemoved(removed: removed)
         }
     }
-    
 }
 
 
@@ -206,8 +210,7 @@ extension SelectionSidebarViewController: NSCollectionViewDataSource {
             return item
         }
     
-        let thumbnail = document?.images[indexPath.item]
-        sidebarThumbnail.thumbnail = thumbnail
+        sidebarThumbnail.thumbnail = document?.images[indexPath.item]
         
         return item
     }
@@ -232,19 +235,27 @@ extension SelectionSidebarViewController: NSCollectionViewDelegate {
 extension SelectionSidebarViewController: NSCollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let newWidth = selectionSidebar.frame.width - 2 * 20
-        let ratio = newWidth / document!.images[indexPath.item].image!.size.width
-        let newHeight = ratio * document!.images[indexPath.item].image!.size.height
+        let ratio = newWidth / document!.images[indexPath.item].image.size.width
+        let newHeight = ratio * document!.images[indexPath.item].image.size.height
         return NSSize(width: newWidth, height: newHeight)
     }
 }
 
 
 extension SelectionSidebarViewController: DocumentObserver {
+    func documentLoaded() {
+        reloadData()
+    }
+
     func documentChanged() {
         totalNoOfImagesSelections.stringValue = String(document?.noOfImages ?? 0) + " / " + String(document?.noOfSelections ?? 0)
     }
     
     func displayChanged() {
+        
+    }
+    
+    func conversionStatusChanged(for imageSelection: ImageSelection) {
         
     }
 }

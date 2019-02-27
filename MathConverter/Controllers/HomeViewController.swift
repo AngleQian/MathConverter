@@ -32,11 +32,19 @@ class HomeViewController: NSViewController {
 
 
 extension HomeViewController: DocumentObserver {
+    func documentLoaded() {
+
+    }
+    
     func documentChanged() {
         
     }
     
     func displayChanged() {
+        
+    }
+    
+    func conversionStatusChanged(for imageSelection: ImageSelection) {
         
     }
 }

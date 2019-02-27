@@ -15,6 +15,7 @@ class WindowController: NSWindowController {
     @IBOutlet weak var totalNoOfImagesSelections: NSTextField!
     @IBOutlet weak var addSelectionButton: NSButton!
     @IBOutlet weak var windowButton: NSSegmentedControl!
+    @IBOutlet weak var convertSelectionsButton: NSButton!
     
     var selectionSplitViewController: SelectionSplitViewController {
         get {
@@ -77,15 +78,26 @@ class WindowController: NSWindowController {
         selectionSplitViewController.toggleWindowButton()
     }
     
+    @IBAction func convertSelectionsButton(_ sender: NSButton) {
+        document_?.convertSelections()
+    }
 }
 
 
 extension WindowController: DocumentObserver {
-    func documentChanged() {
+    func documentLoaded() {
         
+    }
+
+    func documentChanged() {
+        window!.isDocumentEdited = true
     }
     
     func displayChanged() {
         
+    }
+    
+    func conversionStatusChanged(for imageSelection: ImageSelection) {
+        window!.isDocumentEdited = true
     }
 }

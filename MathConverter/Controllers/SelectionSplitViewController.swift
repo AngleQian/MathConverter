@@ -39,10 +39,14 @@ class SelectionSplitViewController: NSSplitViewController {
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
         (splitViewItems[0].viewController as! SelectionSidebarViewController).refreshLayout()
+        if let viewController = (splitViewItems[1].viewController as? ResultsViewController) {
+            viewController.refreshLayout()
+        }
     }
     
     func toggleWindowButton() {
-        let size = splitViewItems[1].viewController.view.frame.size
+        let sizeLeft = splitViewItems[0].viewController.view.frame.size
+        let sizeRight = splitViewItems[1].viewController.view.frame.size
         
         removeSplitViewItem(splitViewItems[1])
         
@@ -57,14 +61,18 @@ class SelectionSplitViewController: NSSplitViewController {
             (splitViewItems[1].viewController as! SelectionMainViewController).refreshDisplay()
         } else if windowButton.selectedSegment == 1 {
             if resultViewSplitItem == nil {
-                let resultMainViewController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("ResultMainViewController")) as! NSViewController
+                let resultMainViewController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("ResultsViewController")) as! NSViewController
                 let item = NSSplitViewItem(viewController: resultMainViewController)
                 resultViewSplitItem = item
             }
             addSplitViewItem(resultViewSplitItem!)
         }
 
-        splitViewItems[1].viewController.view.setFrameSize(size)
+        splitViewItems[0].viewController.view.setFrameSize(sizeLeft)
+        splitViewItems[0].viewController.view.needsDisplay = true
+        splitViewItems[1].viewController.view.setFrameSize(sizeRight)
         splitViewItems[1].viewController.view.needsDisplay = true
+        
+        (splitViewItems[0].viewController as! SelectionSidebarViewController).refreshLayout()
     }
 }

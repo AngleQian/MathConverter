@@ -28,24 +28,32 @@ class SelectionSelector {
             refreshTrackingArea()
         }
     }
+    var canResize: Bool {
+        return resultStatus == .notConverted
+    }
+    var canMove: Bool {
+        return resultStatus == .notConverted
+    }
     var currentAction: SelectorActionStatus
     var handles: [SelectionSelectorHandle]
     var currentHandle: SelectionSelectorHandle?
     var bezierPath: NSBezierPath {
-        get {
-            let path = NSBezierPath(rect: frame)
-            let lineWidth = isSelected ? lineWidthSelected : lineWidthUnselected
-            path.lineWidth = lineWidth
-            let lineDash = ((isSelected && isLineDashedSelected) || (!isSelected && isLineDashedUnselected)) && !isPicker
-            if lineDash {
-                let dash_pattern: [CGFloat] = [5.0]
-                path.setLineDash(dash_pattern, count: 1, phase: 0)
-            }
-            return path
+        let path = NSBezierPath(rect: frame)
+        let lineWidth = isSelected ? lineWidthSelected : lineWidthUnselected
+        path.lineWidth = lineWidth
+        let lineDash = ((isSelected && isLineDashedSelected) || (!isSelected && isLineDashedUnselected)) && !isPicker
+        if lineDash {
+            let dash_pattern: [CGFloat] = [5.0]
+            path.setLineDash(dash_pattern, count: 1, phase: 0)
         }
+        return path
     }
     var trackingArea: NSTrackingArea?
-    var resultStatus: SelectionResultStatus
+    var resultStatus: SelectionResultStatus {
+        didSet {
+            refreshTrackingArea()
+        }
+    }
     
     // MARK: - Style properties
     
@@ -60,6 +68,8 @@ class SelectionSelector {
                 return Color.green
             case .error:
                 return Color.red
+            case .pending:
+                return Color.yellow
             }
         }
     }
@@ -75,6 +85,8 @@ class SelectionSelector {
                 return Color.lightGreen
             case .error:
                 return Color.lightRed
+            case .pending:
+                return Color.lightYellow
             }
         }
     }
@@ -91,20 +103,20 @@ class SelectionSelector {
     
     // MARK: - init()
     
-    init(asPicker picker: Bool, forCanvas canvas: SelectionCanvas, withFrame frame: NSRect) {
+    init(asPicker picker: Bool, forCanvas canvas: SelectionCanvas, withFrame frame: NSRect, withStatus status: SelectionResultStatus?) {
         self.isPicker = picker
         self.canvas = canvas
         self.frame = frame
         isSelected = false
         
         currentAction = .initialize
-        resultStatus = .notConverted
+        resultStatus = status ?? .notConverted
         
         minWidth = 30
         minHeight = 30
-        lineWidthPicker = 0.5
-        lineWidthSelected = 0.5
-        lineWidthUnselected = 0.5
+        lineWidthPicker = 1
+        lineWidthSelected = 1.5
+        lineWidthUnselected = 1
         isLineDashedUnselected = true
         isLineDashedSelected = false
         
@@ -167,6 +179,10 @@ class SelectionSelector {
     }
     
     func resize(toPoint point: NSPoint) {
+        guard canResize else {
+            return
+        }
+        
         let origin = frame.origin
         let size = frame.size
         let maxX = origin.x + size.width
@@ -202,7 +218,11 @@ class SelectionSelector {
     
     var oldFrameOrigin = NSZeroPoint
     
-    func move(toPoint point: NSPoint, relativeTo relative: NSPoint) {        
+    func move(toPoint point: NSPoint, relativeTo relative: NSPoint) {
+        guard canResize else {
+            return
+        }
+        
         let _point = moveClamping(forPoint: point, relativeTo: relative)
         let vector = CGVector(dx: _point.x - relative.x, dy: _point.y - relative.y)
         
@@ -294,37 +314,33 @@ class SelectionSelector {
     }
     
     fileprivate func refreshTrackingArea() {
-        if isSelected {
-            var trackingRect = (canvas.delegate as! SelectionCanvasController).newRect(forFrame: frame)
-            
-            let handle = handles.first!
-            let handleWidth = handle.frame.size.width
-            let handleHeight = handle.frame.size.height
-            let x = trackingRect.origin.x + handleWidth
-            let y = trackingRect.origin.y + handleHeight
-            let w = trackingRect.size.width - handleWidth
-            let h = trackingRect.size.height - handleHeight
-            
-            trackingRect = NSRect(x: x, y: y, width: w, height: h)
-            
-            if let area = trackingArea {
-                canvas.removeTrackingArea(area)
-                trackingArea = nil
-            }
-            
-            let options = NSTrackingArea.Options.activeInKeyWindow.rawValue | NSTrackingArea.Options.mouseEnteredAndExited.rawValue
-            trackingArea = NSTrackingArea(rect: trackingRect, options: NSTrackingArea.Options(rawValue: options), owner: canvas, userInfo: ["Cursor": NSCursor.openHand, "Rect": NSStringFromRect(trackingRect), "isCanvasTrackingArea": false])
-            canvas.addTrackingArea(trackingArea!)
-            
-        } else {
-            if let area = trackingArea {
-                canvas.removeTrackingArea(area)
-                trackingArea = nil
-            }
+        if let area = trackingArea {
+            canvas.removeTrackingArea(area)
+            trackingArea = nil
         }
         
-        for handle in handles {
-            handle.refreshTrackingArea()
+        if isSelected {
+            if canMove {
+                var trackingRect = (canvas.delegate as! SelectionCanvasController).newRect(forFrame: frame)
+                
+                let handle = handles.first!
+                let handleWidth = handle.frame.size.width
+                let handleHeight = handle.frame.size.height
+                let x = trackingRect.origin.x + handleWidth
+                let y = trackingRect.origin.y + handleHeight
+                let w = trackingRect.size.width - handleWidth
+                let h = trackingRect.size.height - handleHeight
+                
+                trackingRect = NSRect(x: x, y: y, width: w, height: h)
+                
+                let options = NSTrackingArea.Options.activeInKeyWindow.rawValue | NSTrackingArea.Options.mouseEnteredAndExited.rawValue
+                trackingArea = NSTrackingArea(rect: trackingRect, options: NSTrackingArea.Options(rawValue: options), owner: canvas, userInfo: ["Cursor": NSCursor.openHand, "Rect": NSStringFromRect(trackingRect), "isCanvasTrackingArea": false])
+                canvas.addTrackingArea(trackingArea!)
+            }
+            
+            for handle in handles {
+                handle.refreshTrackingArea()
+            }
         }
     }
 }

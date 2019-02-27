@@ -17,9 +17,9 @@ struct Color {
     static let gray = NSColor.systemGray
     static let red = NSColor.systemRed
     
-    static let lightYellow = NSColor.systemYellow.withAlphaComponent(0.3)
-    static let lightGreen = NSColor.systemGreen.withAlphaComponent(0.3)
-    static let lightBlue = NSColor.systemBlue.withAlphaComponent(0.3)
-    static let lightGray = NSColor.systemGray.withAlphaComponent(0.3)
-    static let lightRed = NSColor.systemRed.withAlphaComponent(0.3)
+    static let lightYellow = NSColor.systemYellow.withAlphaComponent(0.2)
+    static let lightGreen = NSColor.systemGreen.withAlphaComponent(0.2)
+    static let lightBlue = NSColor.systemBlue.withAlphaComponent(0.2)
+    static let lightGray = NSColor.systemGray.withAlphaComponent(0.2)
+    static let lightRed = NSColor.systemRed.withAlphaComponent(0.2)
 }

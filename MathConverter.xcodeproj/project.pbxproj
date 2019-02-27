@@ -23,6 +23,12 @@
 		530C36A021E1EDAF000878B9 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C369F21E1EDAF000878B9 /* Image.swift */; };
 		530C36A221E1F1E1000878B9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C36A121E1F1E1000878B9 /* Errors.swift */; };
 		5339EAD22210220C0078EC28 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339EAD12210220C0078EC28 /* Styles.swift */; };
+		5340502622199D370014CCA3 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5340502522199D370014CCA3 /* NSImage.swift */; };
+		53405029221AAB9B0014CCA3 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53405028221AAB9B0014CCA3 /* NSView.swift */; };
+		53405032221B1A910014CCA3 /* ResultSnippetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53405030221B1A910014CCA3 /* ResultSnippetItem.swift */; };
+		53405033221B1A910014CCA3 /* ResultSnippetItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53405031221B1A910014CCA3 /* ResultSnippetItem.xib */; };
+		53405035222508A70014CCA3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53405034222508A70014CCA3 /* String.swift */; };
+		5345DC2122111E5B009BF148 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345DC2022111E5B009BF148 /* ResultsViewController.swift */; };
 		53DA929821F5A398006913C1 /* SelectionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929721F5A398006913C1 /* SelectionMainView.swift */; };
 		53DA929A21F85EAB006913C1 /* CenteringClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929921F85EAB006913C1 /* CenteringClipView.swift */; };
 		53DA929C21F8C35D006913C1 /* ImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DA929B21F8C35D006913C1 /* ImageSelection.swift */; };
@@ -56,6 +62,12 @@
 		530C369F21E1EDAF000878B9 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Image.swift; path = MathConverter/Model/Image.swift; sourceTree = SOURCE_ROOT; };
 		530C36A121E1F1E1000878B9 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = MathConverter/Model/Errors.swift; sourceTree = SOURCE_ROOT; };
 		5339EAD12210220C0078EC28 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		5340502522199D370014CCA3 /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
+		53405028221AAB9B0014CCA3 /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
+		53405030221B1A910014CCA3 /* ResultSnippetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSnippetItem.swift; sourceTree = "<group>"; };
+		53405031221B1A910014CCA3 /* ResultSnippetItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultSnippetItem.xib; sourceTree = "<group>"; };
+		53405034222508A70014CCA3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5345DC2022111E5B009BF148 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53DA929721F5A398006913C1 /* SelectionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectionMainView.swift; path = MathConverter/Views/SelectionMainView.swift; sourceTree = SOURCE_ROOT; };
 		53DA929921F85EAB006913C1 /* CenteringClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CenteringClipView.swift; path = MathConverter/Views/CenteringClipView.swift; sourceTree = SOURCE_ROOT; };
 		53DA929B21F8C35D006913C1 /* ImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageSelection.swift; path = MathConverter/Model/ImageSelection.swift; sourceTree = SOURCE_ROOT; };
@@ -110,6 +122,7 @@
 		530C364D21DF24BE000878B9 /* MathConverter */ = {
 			isa = PBXGroup;
 			children = (
+				53405027221AAB750014CCA3 /* Extensions */,
 				530C369A21E1EB22000878B9 /* Resources */,
 				530C369921E0C3F2000878B9 /* Model */,
 				530C369821E0C3DC000878B9 /* Views */,
@@ -134,6 +147,7 @@
 				530C368B21E0904C000878B9 /* SelectionMainViewController.swift */,
 				530C369021E0904C000878B9 /* SelectionSidebarViewController.swift */,
 				53FF2AF02202EAAD0015D4E1 /* SelectionCanvasController.swift */,
+				5345DC2022111E5B009BF148 /* ResultsViewController.swift */,
 			);
 			name = Controllers;
 			path = MathConverter/Controllers;
@@ -149,6 +163,7 @@
 				53FF2AF2220434A10015D4E1 /* SelectionCanvas.swift */,
 				53FF2AF42205A7030015D4E1 /* SelectionSelector.swift */,
 				53FF2AF82205DA260015D4E1 /* SelectionSelectorHandle.swift */,
+				53405030221B1A910014CCA3 /* ResultSnippetItem.swift */,
 			);
 			name = Views;
 			path = MathConverter/Views;
@@ -172,10 +187,21 @@
 			children = (
 				530C365621DF24C0000878B9 /* Main.storyboard */,
 				530C369C21E1ED4C000878B9 /* SidebarThumbnail.xib */,
+				53405031221B1A910014CCA3 /* ResultSnippetItem.xib */,
 			);
 			name = Resources;
 			path = MathConverter/Resources;
 			sourceTree = SOURCE_ROOT;
+		};
+		53405027221AAB750014CCA3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5340502522199D370014CCA3 /* NSImage.swift */,
+				53405028221AAB9B0014CCA3 /* NSView.swift */,
+				53405034222508A70014CCA3 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
 		};
 		BEE7A1AF8AD4BDA33ABBBD92 /* Pods */ = {
 			isa = PBXGroup;
@@ -253,6 +279,7 @@
 			files = (
 				530C365521DF24C0000878B9 /* Assets.xcassets in Resources */,
 				530C365821DF24C0000878B9 /* Main.storyboard in Resources */,
+				53405033221B1A910014CCA3 /* ResultSnippetItem.xib in Resources */,
 				530C369E21E1ED4C000878B9 /* SidebarThumbnail.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,9 +339,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				53FF2AF12202EAAD0015D4E1 /* SelectionCanvasController.swift in Sources */,
+				5345DC2122111E5B009BF148 /* ResultsViewController.swift in Sources */,
 				53DA929A21F85EAB006913C1 /* CenteringClipView.swift in Sources */,
+				5340502622199D370014CCA3 /* NSImage.swift in Sources */,
 				530C366121DF2755000878B9 /* DragView.swift in Sources */,
 				53FF2AFB22074A870015D4E1 /* Structs.swift in Sources */,
+				53405032221B1A910014CCA3 /* ResultSnippetItem.swift in Sources */,
 				530C369221E0904C000878B9 /* WindowController.swift in Sources */,
 				53FF2AF3220434A10015D4E1 /* SelectionCanvas.swift in Sources */,
 				53DA929C21F8C35D006913C1 /* ImageSelection.swift in Sources */,
@@ -324,6 +354,7 @@
 				530C369421E0904C000878B9 /* AppDelegate.swift in Sources */,
 				5339EAD22210220C0078EC28 /* Styles.swift in Sources */,
 				530C366321DF27D3000878B9 /* Converter.swift in Sources */,
+				53405035222508A70014CCA3 /* String.swift in Sources */,
 				530C369621E0904C000878B9 /* SelectionSidebarViewController.swift in Sources */,
 				530C369521E0904C000878B9 /* SelectionSplitViewController.swift in Sources */,
 				53FF2AF52205A7030015D4E1 /* SelectionSelector.swift in Sources */,
@@ -331,6 +362,7 @@
 				530C36A021E1EDAF000878B9 /* Image.swift in Sources */,
 				530C369D21E1ED4C000878B9 /* SidebarThumbnail.swift in Sources */,
 				53DA929821F5A398006913C1 /* SelectionMainView.swift in Sources */,
+				53405029221AAB9B0014CCA3 /* NSView.swift in Sources */,
 				53FF2AF72205D27B0015D4E1 /* Enums.swift in Sources */,
 				53FF2AF92205DA260015D4E1 /* SelectionSelectorHandle.swift in Sources */,
 			);
