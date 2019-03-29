@@ -43,7 +43,7 @@ class SelectionCanvasController: NSViewController {
     }
     
     override func viewDidAppear() {
-        document?.attachObserver(documentObserver: self)
+        document?.attachObserver(self)
         loadFromDocument()
     }
     

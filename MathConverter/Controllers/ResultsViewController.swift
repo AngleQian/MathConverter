@@ -13,6 +13,12 @@ class ResultsViewController: NSViewController {
     
     @IBOutlet weak var resultsView: NSCollectionView!
     
+    var maxItemWidth: CGFloat = 0 {
+        didSet {
+            setMinimumWidth()
+        }
+    }
+    
     var document: Document? {
         return view.window?.windowController?.document as? Document
     }
@@ -23,7 +29,7 @@ class ResultsViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        document?.attachObserver(documentObserver: self)
+        document?.attachObserver(self)
         refreshLayout()
     }
     
@@ -31,7 +37,7 @@ class ResultsViewController: NSViewController {
         let flowLayout = NSCollectionViewFlowLayout()
         
         flowLayout.sectionInset = NSEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
-        flowLayout.minimumInteritemSpacing = 20000
+        flowLayout.minimumInteritemSpacing = 30000000000
         flowLayout.minimumLineSpacing = 30.0
         
         resultsView.collectionViewLayout = flowLayout
@@ -45,6 +51,12 @@ class ResultsViewController: NSViewController {
     fileprivate func reloadData() {
         resultsView.reloadData()
         refreshLayout()
+    }
+    
+    fileprivate func setMinimumWidth() {
+        let constant = maxItemWidth + 40
+        let horizontalConstraint = NSLayoutConstraint(item: resultsView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: constant)
+        view.addConstraint(horizontalConstraint)
     }
 }
 
@@ -61,7 +73,7 @@ extension ResultsViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = resultsView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ResultSnippetItem"), for: indexPath)
         
-        item.view.translatesAutoresizingMaskIntoConstraints = false
+        item.view.translatesAutoresizingMaskIntoConstraints = true
         
         guard let resultSnippet = item as? ResultSnippetItem, let document = document, document.displayed < document.noOfImages, indexPath.item <  document.images[document.displayed].noOfConvertedSelections else {
             return item
@@ -81,9 +93,13 @@ extension ResultsViewController: NSCollectionViewDelegateFlowLayout {
             return NSSize(width: 0, height: 0)
         }
 
-        let width = resultsView.frame.size.width * 0.8
-        let height = image.size.height + 5 + 22
+        let width = image.size.width + 10
+        let height = image.size.height + 15 + 22
         let size = NSSize(width: width, height: height)
+        
+        if width > maxItemWidth {
+            maxItemWidth = width
+        }
         
         return size
     }

@@ -10,7 +10,7 @@ import Cocoa
 
 
 class ResultSnippetItem: NSCollectionViewItem {
-
+    
     var originalImage: NSImage? {
         didSet {
             guard isViewLoaded else { return }

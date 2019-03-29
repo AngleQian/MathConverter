@@ -14,13 +14,14 @@ protocol ImageDelegate {
     func conversionStatusChanged(for imageSelection: ImageSelection)
 }
 
+
 class Image {
     
     var image: NSImage
     var filename: String
     var selections = [ImageSelection]() {
         didSet {
-            delegate?.selectionsChanged()
+            delegate.selectionsChanged()
         }
     }
     var noOfSelections: Int {
@@ -39,7 +40,7 @@ class Image {
         return convertedSelections.count
     }
     
-    var delegate: ImageDelegate?
+    var delegate: ImageDelegate
     
     init(withfileURL url: URL, delegate: ImageDelegate) throws {
         self.delegate = delegate
@@ -153,6 +154,6 @@ class Image {
 
 extension Image: ImageSelectionDelegate {
     func conversionStatusChanged(for imageSelection: ImageSelection) {
-        delegate?.conversionStatusChanged(for: imageSelection)
+        delegate.conversionStatusChanged(for: imageSelection)
     }
 }

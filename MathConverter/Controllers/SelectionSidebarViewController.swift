@@ -10,8 +10,8 @@ import Cocoa
 
 
 protocol SelectionSidebarSelectionObserver {
-    func selectionsAdded(added: Set<IndexPath>)
-    func selectionsRemoved(removed: Set<IndexPath>)
+    func selections(added: Set<IndexPath>)
+    func selections(removed: Set<IndexPath>)
 }
 
 
@@ -34,7 +34,7 @@ class SelectionSidebarViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        document?.attachObserver(documentObserver: self)
+        document?.attachObserver(self)
         if let doc = document {
             attachObserver(observer: doc)
         }
@@ -76,9 +76,13 @@ class SelectionSidebarViewController: NSViewController {
         // reloadData() will clear all the selections
         selectionsRemoved(removed: selectionSidebar.selectionIndexPaths)
         refreshLayout()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+            self.refreshLayout()
+        })
     }
     
     func refreshLayout() {
+        selectionSidebar.collectionViewLayout!.invalidateLayout()
         if let layout = selectionSidebar.collectionViewLayout {
             layout.invalidateLayout()
         } else {
@@ -97,7 +101,7 @@ class SelectionSidebarViewController: NSViewController {
         var newSelection: Set<IndexPath>
         
         for url in urls {
-            document?.addImageAtIndex(fileURL: url, atIndex: atIndex)
+            document?.addImage(withFileURL: url, atIndex: atIndex)
             indexPaths.insert(IndexPath(item: currentItem, section: 0))
             currentItem += 1
         }
@@ -155,7 +159,7 @@ class SelectionSidebarViewController: NSViewController {
         // and becomes different from its index in selectionIndexPaths
         var offset = 0
         for indexPath in selectionIndexPathsArray {
-            document?.removeImageAtIndex(atIndex: indexPath.item - offset)
+            document?.removeImage(atIndex: indexPath.item - offset)
             offset += 1
         }
         
@@ -186,13 +190,13 @@ class SelectionSidebarViewController: NSViewController {
     
     fileprivate func selectionsAdded(added: Set<IndexPath>) {
         for observer in selectionSidebarSelectionObservers {
-            observer.selectionsAdded(added: added)
+            observer.selections(added: added)
         }
     }
     
     fileprivate func selectionsRemoved(removed: Set<IndexPath>) {
         for observer in selectionSidebarSelectionObservers {
-            observer.selectionsRemoved(removed: removed)
+            observer.selections(removed: removed)
         }
     }
 }

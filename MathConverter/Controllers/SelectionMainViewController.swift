@@ -37,7 +37,7 @@ class SelectionMainViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        document?.attachObserver(documentObserver: self)
+        document?.attachObserver(self)
     }
 
     func refreshDisplay() {

@@ -20,7 +20,7 @@ class HomeViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        document?.attachObserver(documentObserver: self)
+        document?.attachObserver(self)
     }
 
     override var representedObject: Any? {

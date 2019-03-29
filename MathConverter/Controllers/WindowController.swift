@@ -49,20 +49,20 @@ class WindowController: NSWindowController {
     }
     
     func adjustWindowSize() {
-//        let xRatio = 0.9
-//        let yRatio = 0.9
-//        
-//        guard let screen = NSScreen.main else {
-//            fatalError("No screen?")
-//        }
-//        
-//        let screenRect: NSRect
-//        screenRect = screen.frame
-//        let sH = Double(screenRect.size.height)
-//        let sW = Double(screenRect.size.width)
-//        let windowRect = CGRect(x: Double(window?.frame.origin.x ?? 0), y: Double(window?.frame.origin.y ?? 0), width: xRatio * sW, height: yRatio * sH) as NSRect
-//        
-//        window?.setFrame(windowRect, display: true, animate: true)
+        let xRatio = 0.8
+        let yRatio = 0.8
+        
+        guard let screen = NSScreen.main else {
+            fatalError("No screen?")
+        }
+        
+        let screenRect: NSRect
+        screenRect = screen.frame
+        let sH = Double(screenRect.size.height)
+        let sW = Double(screenRect.size.width)
+        let windowRect = CGRect(x: Double(window?.frame.origin.x ?? 0), y: Double(window?.frame.origin.y ?? 0), width: xRatio * sW, height: yRatio * sH) as NSRect
+        
+        window?.setFrame(windowRect, display: true, animate: true)
     }
     
     

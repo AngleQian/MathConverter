@@ -85,6 +85,8 @@ class ImageSelection {
     func convertSelection() {
         if case .notConverted = status {
             
+        } else if case .error = status {
+            
         } else {
             return
         }

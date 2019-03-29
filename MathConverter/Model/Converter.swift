@@ -16,7 +16,7 @@ protocol ConverterCaller {
     func result(_: NSDictionary)
 }
 
-
+ 
 func convertImage(image: NSImage, caller: ConverterCaller) {
     Swift.print("Converting")
     

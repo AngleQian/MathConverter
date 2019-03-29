@@ -696,7 +696,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="4kJ-zE-ePD"/>
                                 <toolbarItem implicitItemIdentifier="AFCE6F84-B751-47D8-A12E-EBBFE50CB529" label="Areas for Conversion" paletteLabel="Areas for Conversion" sizingBehavior="auto" selectable="YES" id="pwz-MD-syx">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" id="WSK-h0-bo7">
+                                    <button key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="WSK-h0-bo7">
                                         <rect key="frame" x="1" y="14" width="115" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Add Selection" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30K-IK-F00">
@@ -708,7 +708,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="8be-q3-F5Z"/>
                                 <toolbarItem implicitItemIdentifier="E94785BA-14F5-4FB7-96CC-FD69D43C273E" label="Window" paletteLabel="Window" sizingBehavior="auto" id="wab-AG-QCg">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" id="V10-1w-RDz">
+                                    <segmentedControl key="view" verticalHuggingPriority="750" id="V10-1w-RDz">
                                         <rect key="frame" x="0.0" y="14" width="172" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="z2V-Dv-yHq">
@@ -737,7 +737,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5BC0556D-6E5F-4420-B879-11D07E76A8C4" label="Remove Image" paletteLabel="Remove Image" image="NSRemoveTemplate" sizingBehavior="auto" id="mFb-9H-7UT">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="D3U-VJ-NRg">
+                                    <button key="view" verticalHuggingPriority="750" id="D3U-VJ-NRg">
                                         <rect key="frame" x="0.0" y="14" width="123" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cry-46-rij">
@@ -751,7 +751,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6A33F29B-669B-451B-BEDF-142981F9D69D" label="Add Image" paletteLabel="Add Image" image="NSAddTemplate" sizingBehavior="auto" id="H86-WQ-2Zt">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="xH8-tE-1Ek">
+                                    <button key="view" verticalHuggingPriority="750" id="xH8-tE-1Ek">
                                         <rect key="frame" x="0.0" y="14" width="127" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ls1-X8-IfN">

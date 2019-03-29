@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 
+
 protocol DocumentObserver {
     func documentChanged()
     func displayChanged()
@@ -50,7 +51,7 @@ class Document: NSDocument {
     
     override func data(ofType typeName: String) throws -> Data {
         // Insert code here to write your document to data of the specified type, throwing an error in case of failure.
-        let documentDict = serializeDocument()
+        let documentDict = serialize()
         do {
             let documentData = try NSKeyedArchiver.archivedData(withRootObject: documentDict, requiringSecureCoding: false)
             return documentData
@@ -74,7 +75,7 @@ class Document: NSDocument {
         }
     
         do {
-            try deserializeDocument(from: documentDict)
+            try deserialize(from: documentDict)
         } catch {
             throw DocumentError.deserializationError("deserializeDocument(from:)")
         }
@@ -84,7 +85,7 @@ class Document: NSDocument {
         })
     }
     
-    func deserializeDocument(from dict: [String: AnyObject]) throws {
+    func deserialize(from dict: [String: AnyObject]) throws {
         guard dict["images"] != nil, let serializedImages = dict["images"] as? [AnyObject] else {
             throw DocumentError.deserializationError("dict[\"images\"]")
         }
@@ -103,7 +104,7 @@ class Document: NSDocument {
         }
     }
     
-    func serializeDocument() -> [String: AnyObject] {
+    func serialize() -> [String: AnyObject] {
         var dict: [String: AnyObject] = [:]
         
         var serializedImages = [AnyObject]()
@@ -116,13 +117,13 @@ class Document: NSDocument {
     }
     
     
-    func addImage(fileURL: URL) {
-        addImageAtIndex(fileURL: fileURL, atIndex: noOfImages - 1)
+    func addImage(withFileURL: URL) {
+        addImage(withFileURL: withFileURL, atIndex: noOfImages - 1)
     }
     
-    func addImageAtIndex(fileURL: URL, atIndex: Int){
+    func addImage(withFileURL: URL, atIndex: Int){
         do {
-            let image = try Image(withfileURL: fileURL, delegate: self)
+            let image = try Image(withfileURL: withFileURL, delegate: self)
             if atIndex >= noOfImages - 1 {
                 images.append(image)
             } else {
@@ -136,7 +137,7 @@ class Document: NSDocument {
         }
     }
     
-    func removeImageAtIndex(atIndex: Int){
+    func removeImage(atIndex: Int){
         if (atIndex < 0 || atIndex >= noOfImages) {
             Swift.print("removeImageAtIndex(): atIndex outofbounds \(atIndex)")
         } else {
@@ -145,7 +146,7 @@ class Document: NSDocument {
         }
     }
     
-    func imageAtIndex(atIndex: Int) -> Image{
+    func getImage(atIndex: Int) -> Image{
         return images[atIndex]
     }
     
@@ -157,7 +158,7 @@ class Document: NSDocument {
     
     private var documentObservers = [DocumentObserver]()
     
-    func attachObserver(documentObserver: DocumentObserver){
+    func attachObserver(_ documentObserver: DocumentObserver){
         documentObservers.append(documentObserver)
     }
     
@@ -203,14 +204,14 @@ extension Document: ImageDelegate {
 
 
 extension Document: SelectionSidebarSelectionObserver {
-    func selectionsAdded(added: Set<IndexPath>) {
+    func selections(added: Set<IndexPath>) {
         for indexPath in added {
             selected.append(indexPath.item)
         }
         changeDisplay(to: added.first?.item ?? 0)
     }
     
-    func selectionsRemoved(removed: Set<IndexPath>) {
+    func selections(removed: Set<IndexPath>) {
         for indexPath in removed {
             if let i = selected.index(of: indexPath.item){
                 selected.remove(at: i)
