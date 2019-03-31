@@ -14,11 +14,11 @@ class SelectionSplitViewController: NSSplitViewController {
     var document: Document? {
         return view.window?.windowController?.document as? Document
     }
-    var windowButton: NSSegmentedControl {
-        return (view.window!.windowController! as! WindowController).windowButton
+    var selectionSidebarViewController: SelectionSidebarViewController {
+        return splitViewItems[0].viewController as! SelectionSidebarViewController
     }
     var selectionViewSplitItem: NSSplitViewItem?
-    var resultViewSplitItem: NSSplitViewItem?
+    var resultsViewSplitItem: NSSplitViewItem?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -44,13 +44,13 @@ class SelectionSplitViewController: NSSplitViewController {
         }
     }
     
-    func toggleWindowButton() {
+    func toggleWindowButton(withSelectedSegment seg: Int) {
         let sizeLeft = splitViewItems[0].viewController.view.frame.size
         let sizeRight = splitViewItems[1].viewController.view.frame.size
         
         removeSplitViewItem(splitViewItems[1])
         
-        if windowButton.selectedSegment == 0 {
+        if seg == 0 {
             if selectionViewSplitItem == nil {
                 let selectionMainViewController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SelectionMainViewController")) as! SelectionMainViewController
                 let item = NSSplitViewItem(viewController: selectionMainViewController)
@@ -59,13 +59,13 @@ class SelectionSplitViewController: NSSplitViewController {
             addSplitViewItem(selectionViewSplitItem!)
             
             (splitViewItems[1].viewController as! SelectionMainViewController).refreshDisplay()
-        } else if windowButton.selectedSegment == 1 {
-            if resultViewSplitItem == nil {
-                let resultMainViewController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("ResultsViewController")) as! NSViewController
+        } else if seg == 1 {
+            if resultsViewSplitItem == nil {
+                let resultMainViewController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("resultsViewController")) as! NSViewController
                 let item = NSSplitViewItem(viewController: resultMainViewController)
-                resultViewSplitItem = item
+                resultsViewSplitItem = item
             }
-            addSplitViewItem(resultViewSplitItem!)
+            addSplitViewItem(resultsViewSplitItem!)
         }
 
         splitViewItems[0].viewController.view.setFrameSize(sizeLeft)
@@ -74,5 +74,13 @@ class SelectionSplitViewController: NSSplitViewController {
         splitViewItems[1].viewController.view.needsDisplay = true
         
         (splitViewItems[0].viewController as! SelectionSidebarViewController).refreshLayout()
+    }
+    
+    func addImage() {
+        selectionSidebarViewController.addImage()
+    }
+    
+    func removeImage() {
+        selectionSidebarViewController.removeImage()
     }
 }

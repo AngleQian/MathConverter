@@ -21,13 +21,13 @@ class ImageSelection {
     var selectionImage: NSImage?
     var status: SelectionResultStatus {
         didSet {
-            delegate?.conversionStatusChanged(for: self)
+            delegate.conversionStatusChanged(for: self)
         }
     }
     var latex = ""
     var userLatex: String?
     
-    var delegate: ImageSelectionDelegate?
+    var delegate: ImageSelectionDelegate
     
     init(withRect rect: NSRect, image: NSImage, delegate: ImageSelectionDelegate) {
         self.status = .notConverted
@@ -99,10 +99,7 @@ class ImageSelection {
     }
     
     fileprivate func updateSelectionImage() {
-        guard let image = delegate?.image else {
-            return
-        }
-        
+        let image = delegate.image        
         let rect = selectionRect
         
         guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {

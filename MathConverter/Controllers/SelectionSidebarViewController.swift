@@ -61,7 +61,7 @@ class SelectionSidebarViewController: NSViewController {
     fileprivate func highlightItems(selected: Bool, atIndexPaths: Set<IndexPath>) {
         for indexPath in atIndexPaths {
             guard let item = selectionSidebar.item(at: indexPath) else {continue}
-            (item as! SidebarThumbnail).setHighlight(selected: selected)
+            (item as! SidebarThumbnail).setHighlight(to: selected)
         }
     }
     
@@ -93,14 +93,14 @@ class SelectionSidebarViewController: NSViewController {
     // atIndex of the current selection
     // image(s) should be added after the selection
     // the last newly added image should be selected
-    fileprivate func addImageAtIndexFromURLs(urls: [URL], atIndex: Int) {
+    fileprivate func addImage(fromURLs: [URL], atIndex: Int) {
         var currentItem = atIndex
         var indexPaths: Set<IndexPath> = []
         
         let isSelectionEmpty: Bool = selectionSidebar.selectionIndexPaths.isEmpty
         var newSelection: Set<IndexPath>
         
-        for url in urls {
+        for url in fromURLs {
             document?.addImage(withFileURL: url, atIndex: atIndex)
             indexPaths.insert(IndexPath(item: currentItem, section: 0))
             currentItem += 1
@@ -115,13 +115,13 @@ class SelectionSidebarViewController: NSViewController {
             }
             newSelection = Set([IndexPath(item: itemIndex, section: 0)])
         } else {
-            newSelection = Set([IndexPath(item: atIndex + urls.count, section: 0)])
+            newSelection = Set([IndexPath(item: atIndex + fromURLs.count, section: 0)])
         }
         
         selectItems(newSelection: newSelection)
     }
     
-    // addImage() will be called from WindowController
+    // addImage() will be called from SelectionSplitViewController
     func addImage() {
         var maxSelectionIndex: Int? // if selectionIndexPaths is empty, maxSelectionIndex will be nil
         for indexPath in selectionSidebar.selectionIndexPaths {
@@ -140,11 +140,11 @@ class SelectionSidebarViewController: NSViewController {
         
         openPanel.beginSheetModal(for: view.window!, completionHandler: { (response) -> Void in
             guard response == NSApplication.ModalResponse.OK else {return}
-            self.addImageAtIndexFromURLs(urls: openPanel.urls, atIndex: atIndex)
+            self.addImage(fromURLs: openPanel.urls, atIndex: atIndex)
         })
     }
     
-    // removeImage() will be called from WindowController
+    // removeImage() will be called from SelectionSplitViewController
     func removeImage() {
         let selectionIndexPaths = selectionSidebar.selectionIndexPaths
         if selectionIndexPaths.isEmpty {

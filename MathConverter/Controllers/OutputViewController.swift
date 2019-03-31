@@ -1,5 +1,5 @@
 //
-//  ResultsViewController.swift
+//  resultsViewController.swift
 //  MathConverter
 //
 //  Created by Angle Qian on 2019/2/11.
@@ -25,7 +25,7 @@ class ResultsViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureResultsView()
+        configureresultsView()
     }
     
     override func viewDidAppear() {
@@ -33,7 +33,7 @@ class ResultsViewController: NSViewController {
         refreshLayout()
     }
     
-    fileprivate func configureResultsView() {
+    fileprivate func configureresultsView() {
         let flowLayout = NSCollectionViewFlowLayout()
         
         flowLayout.sectionInset = NSEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
@@ -71,11 +71,11 @@ extension ResultsViewController: NSCollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = resultsView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ResultSnippetItem"), for: indexPath)
+        let item = resultsView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ResultsSnippetItem"), for: indexPath)
         
         item.view.translatesAutoresizingMaskIntoConstraints = true
         
-        guard let resultSnippet = item as? ResultSnippetItem, let document = document, document.displayed < document.noOfImages, indexPath.item <  document.images[document.displayed].noOfConvertedSelections else {
+        guard let resultSnippet = item as? ResultsSnippetItem, let document = document, document.displayed < document.noOfImages, indexPath.item <  document.images[document.displayed].noOfConvertedSelections else {
             return item
         }
         

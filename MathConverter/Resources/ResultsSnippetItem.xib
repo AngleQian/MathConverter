@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ResultSnippetItem" customModule="MathConverter" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ResultsSnippetItem" customModule="MathConverter" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -41,7 +42,7 @@
             </constraints>
             <point key="canvasLocation" x="86" y="154"/>
         </customView>
-        <collectionViewItem id="m6i-zr-aki" customClass="ResultSnippetItem" customModule="MathConverter" customModuleProvider="target">
+        <collectionViewItem id="m6i-zr-aki" customClass="ResultsSnippetItem" customModule="MathConverter" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="m0Q-TW-vym" id="x1f-iD-Xks"/>
                 <outlet property="textField" destination="yQW-Bl-zno" id="toT-ke-MX0"/>

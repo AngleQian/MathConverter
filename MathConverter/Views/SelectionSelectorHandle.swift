@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SelectionSelectorHandle: NSObject {
+class SelectionSelectorHandle {
     
     // MARK: - Properties
     

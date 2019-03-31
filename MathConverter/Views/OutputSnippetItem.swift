@@ -9,7 +9,7 @@
 import Cocoa
 
 
-class ResultSnippetItem: NSCollectionViewItem {
+class ResultsSnippetItem: NSCollectionViewItem {
     
     var originalImage: NSImage? {
         didSet {

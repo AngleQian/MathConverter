@@ -18,21 +18,11 @@ class WindowController: NSWindowController {
     @IBOutlet weak var convertSelectionsButton: NSButton!
     
     var selectionSplitViewController: SelectionSplitViewController {
-        get {
-            return window!.contentViewController! as! SelectionSplitViewController
-        }
-    }
-    
-    var selectionSidebarViewController: SelectionSidebarViewController {
-        get {
-            return selectionSplitViewController.splitViewItems[0].viewController as! SelectionSidebarViewController
-        }
+        return window!.contentViewController! as! SelectionSplitViewController
     }
     
     var document_: Document? {
-        get {
-            return document as? Document
-        }
+        return document as? Document
     }
     
     required init?(coder: NSCoder) {
@@ -67,15 +57,15 @@ class WindowController: NSWindowController {
     
     
     @IBAction func addImage(_ sender: Any) {
-        selectionSidebarViewController.addImage()
+        selectionSplitViewController.addImage()
     }
     
     @IBAction func removeImage(_ sender: Any) {
-        selectionSidebarViewController.removeImage()
+        selectionSplitViewController.removeImage()
     }
     
     @IBAction func toggleWindowButton(_ sender: NSSegmentedControl) {
-        selectionSplitViewController.toggleWindowButton()
+        selectionSplitViewController.toggleWindowButton(withSelectedSegment: windowButton.selectedSegment)
     }
     
     @IBAction func convertSelectionsButton(_ sender: NSButton) {
